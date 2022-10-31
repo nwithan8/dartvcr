@@ -1,6 +1,5 @@
 
 
-import 'package:dartvcr/dartvcr.dart';
 import 'package:dartvcr/src/cassette.dart';
 import 'package:dartvcr/src/http_client.dart';
 import 'package:dartvcr/src/mode.dart';
