@@ -12,7 +12,7 @@ part 'http_interaction.g.dart';
 @JsonSerializable(explicitToJson: true)
 class HttpInteraction extends HttpElement {
   @JsonKey(name: 'duration')
-  final double duration;
+  int duration;
 
   @JsonKey(name: 'recorded_at')
   final DateTime recordedAt;

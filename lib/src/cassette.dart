@@ -9,7 +9,8 @@ class Cassette {
 
   bool _locked = false;
 
-  Cassette(folderPath, this.name) : _filePath = '$folderPath/$name.json';
+  Cassette(folderPath, this.name)
+      : _filePath = '$folderPath/$name.json';
 
   int get numberOfInteractions => read().length;
 

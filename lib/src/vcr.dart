@@ -1,4 +1,5 @@
-import 'package:dartvcr/src/http_client.dart';
+import 'package:dartvcr/src/advanced_settings.dart';
+import 'package:dartvcr/src/easyvcr_client.dart';
 
 import 'cassette.dart';
 import 'mode.dart';
@@ -8,13 +9,18 @@ class VCR {
 
   Mode _mode;
 
-  VCR() : _mode = Mode.bypass;
+  AdvancedSettings? _advancedSettings;
+
+  VCR({AdvancedSettings? advancedSettings})
+      : _mode = Mode.bypass,
+        _advancedSettings = advancedSettings;
 
   String? get cassetteName => _currentCassette?.name;
 
-  HttpClient get client => _currentCassette == null
+  EasyVCRClient get client => _currentCassette == null
       ? throw Exception('No cassette is loaded')
-      : HttpClient(_currentCassette!, _mode);
+      : EasyVCRClient(_currentCassette!, _mode,
+          advancedSettings: _advancedSettings ?? AdvancedSettings());
 
   void eject() {
     _currentCassette = null;

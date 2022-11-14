@@ -87,7 +87,7 @@ class Censors {
     }
   }
 
-  Map<String, dynamic> applyHeaderCensors(Map<String, dynamic> headers) {
+  Map<String, String> applyHeaderCensors(Map<String, String> headers) {
     if (headers.isEmpty) {
       // short circuit if headers is empty
       return headers;
@@ -98,7 +98,7 @@ class Censors {
       return headers;
     }
 
-    Map<String, dynamic> newHeaders = <String, dynamic>{};
+    Map<String, String> newHeaders = <String, String>{};
 
     headers.forEach((key, value) {
       if (elementShouldBeCensored(key, _headerElementsToCensor)) {
@@ -111,12 +111,7 @@ class Censors {
     return newHeaders;
   }
 
-  String? applyQueryCensors(String? url) {
-    if (url == null) {
-      // short circuit if url is null
-      return url;
-    }
-
+  String applyQueryCensors(String url) {
     if (_queryElementsToCensor.isEmpty) {
       // short circuit if there are no censors to apply
       return url;
