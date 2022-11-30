@@ -1,6 +1,6 @@
 const String viaRecordingHeaderKey = "X-Via-EasyVCR-Recording";
 
-Map<String, dynamic> get replayHeaders => {
+Map<String, String> get replayHeaders => {
       viaRecordingHeaderKey: "true",
     };
 

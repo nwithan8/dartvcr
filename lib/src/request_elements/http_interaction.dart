@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:dartvcr/src/censors.dart';
+import 'package:dartvcr/src/defaults.dart';
 import 'package:dartvcr/src/request_elements/http_element.dart';
 import 'package:dartvcr/src/request_elements/request.dart';
 import 'package:dartvcr/src/request_elements/response.dart';
@@ -30,25 +32,26 @@ class HttpInteraction extends HttpElement {
 
   Map<String, dynamic> toJson() => _$HttpInteractionToJson(this);
 
-  http.StreamedResponse toStreamedResponse() {
+  http.StreamedResponse toStreamedResponse(Censors censors) {
     final streamedResponse = http.StreamedResponse(
       http.ByteStream.fromBytes(utf8.encode(response.body ?? '')),
       response.status.code ?? 200,
       reasonPhrase: response.status.message,
       contentLength: response.body?.length,
       request: http.Request(request.method, request.uri),
-      headers: response.headers ?? {},
+      headers: censors.applyHeaderCensors(response.headers ?? {}),
     );
     return streamedResponse;
   }
 
-  factory HttpInteraction.fromHttpResponse(http.Response response) {
-    final body = response.body;
-    final headers = response.headers;
+  factory HttpInteraction.fromHttpResponse(http.Response response, Censors censors) {
+    final requestBody = ((response.request!) as http.Request).body;
+    final responseBody = response.body;
+    final headers = censors.applyHeaderCensors(response.headers);
     final status = Status(response.statusCode, response.reasonPhrase);
     final request =
-        Request(null, headers, response.request!.method, response.request!.url);
+        Request(requestBody, headers, response.request!.method, response.request!.url);
     return HttpInteraction(
-        0, DateTime.now(), request, Response(body, headers, status));
+        0, DateTime.now(), request, Response(responseBody, headers, status));
   }
 }

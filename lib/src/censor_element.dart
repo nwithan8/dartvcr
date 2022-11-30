@@ -1,11 +1,9 @@
 class CensorElement {
-
   final String name;
 
   final bool caseSensitive;
 
-  CensorElement(this.name, caseSensitive) :
-      caseSensitive = caseSensitive ?? false;
+  CensorElement(this.name, {this.caseSensitive = false});
 
   bool matches(String key) {
     if (caseSensitive) {

@@ -29,7 +29,7 @@ class Censors {
   Censors censorBodyElementsByKeys(List<String> keys,
       {bool caseSensitive = false}) {
     _bodyElementsToCensor
-        .addAll(keys.map((key) => CensorElement(key, caseSensitive)));
+        .addAll(keys.map((key) => CensorElement(key, caseSensitive: caseSensitive)));
     return this;
   }
 
@@ -41,7 +41,7 @@ class Censors {
   Censors censorHeaderElementsByKeys(List<String> keys,
       {bool caseSensitive = false}) {
     _headerElementsToCensor
-        .addAll(keys.map((key) => CensorElement(key, caseSensitive)));
+        .addAll(keys.map((key) => CensorElement(key, caseSensitive: caseSensitive)));
     return this;
   }
 
@@ -53,7 +53,7 @@ class Censors {
   Censors censorQueryElementsByKeys(List<String> keys,
       {bool caseSensitive = false}) {
     _queryElementsToCensor
-        .addAll(keys.map((key) => CensorElement(key, caseSensitive)));
+        .addAll(keys.map((key) => CensorElement(key, caseSensitive: caseSensitive)));
     return this;
   }
 
@@ -87,21 +87,33 @@ class Censors {
     }
   }
 
-  Map<String, String> applyHeaderCensors(Map<String, String> headers) {
-    if (headers.isEmpty) {
+  Map<String, String> _removeNullValuesFromMap(Map<String, String?> map) {
+    Map<String, String> result = {};
+    map.forEach((key, value) {
+      if (value != null) {
+        result[key] = value;
+      }
+    });
+    return result;
+  }
+
+  Map<String, String> applyHeaderCensors(Map<String, String?>? headers) {
+    if (headers == null || headers.isEmpty) {
       // short circuit if headers is empty
-      return headers;
+      return {};
     }
 
     if (_headerElementsToCensor.isEmpty) {
       // short circuit if there are no censors to apply
-      return headers;
+      return _removeNullValuesFromMap(headers);
     }
 
     Map<String, String> newHeaders = <String, String>{};
 
     headers.forEach((key, value) {
-      if (elementShouldBeCensored(key, _headerElementsToCensor)) {
+      if (value == null) {
+
+      } else if (elementShouldBeCensored(key, _headerElementsToCensor)) {
         newHeaders[key] = _censorString;
       } else {
         newHeaders[key] = value;

@@ -1,3 +1,5 @@
+import 'package:dartvcr/src/censors.dart';
+import 'package:dartvcr/src/defaults.dart';
 import 'package:dartvcr/src/request_elements/status.dart';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
@@ -12,7 +14,7 @@ class Response extends HttpElement {
   final String? body;
 
   @JsonKey(name: 'headers')
-  final Map<String, String>? headers;
+  final Map<String, String> headers;
 
   @JsonKey(name: 'status')
   final Status status;
@@ -24,23 +26,26 @@ class Response extends HttpElement {
 
   Map<String, dynamic> toJson() => _$ResponseToJson(this);
 
-  static Future<http.StreamedResponse> toStream(http.Response response) async {
+  static Future<http.StreamedResponse> toStream(http.Response response, Censors censors) async {
+    Map<String, String> headers = response.headers;
+    headers = censors.applyHeaderCensors(headers);
+
     return http.StreamedResponse(
       Stream.fromIterable([response.bodyBytes]),
       response.statusCode,
       request: response.request,
-      headers: response.headers,
+      headers: headers,
       isRedirect: response.isRedirect,
       persistentConnection: response.persistentConnection,
       reasonPhrase: response.reasonPhrase,
     );
   }
 
-  static Future<http.Response> fromStream(http.StreamedResponse response) async {
+  static Future<http.Response> fromStream(http.StreamedResponse response, Censors censors) async {
     final body = await response.stream.toBytes();
     return http.Response.bytes(body, response.statusCode,
         request: response.request,
-        headers: response.headers,
+        headers: censors.applyHeaderCensors(response.headers),
         isRedirect: response.isRedirect,
         persistentConnection: response.persistentConnection,
         reasonPhrase: response.reasonPhrase);

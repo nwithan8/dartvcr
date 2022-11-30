@@ -8,9 +8,7 @@ part of 'response.dart';
 
 Response _$ResponseFromJson(Map<String, dynamic> json) => Response(
       json['body'] as String?,
-      (json['headers'] as Map<String, dynamic>?)?.map(
-        (k, e) => MapEntry(k, e as String),
-      ),
+      Map<String, String>.from(json['headers'] as Map),
       Status.fromJson(json['status'] as Map<String, dynamic>),
     );
 

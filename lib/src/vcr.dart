@@ -9,18 +9,17 @@ class VCR {
 
   Mode _mode;
 
-  AdvancedSettings? _advancedSettings;
+  AdvancedSettings? advancedSettings;
 
-  VCR({AdvancedSettings? advancedSettings})
-      : _mode = Mode.bypass,
-        _advancedSettings = advancedSettings;
+  VCR({this.advancedSettings})
+      : _mode = Mode.bypass;
 
   String? get cassetteName => _currentCassette?.name;
 
   EasyVCRClient get client => _currentCassette == null
       ? throw Exception('No cassette is loaded')
       : EasyVCRClient(_currentCassette!, _mode,
-          advancedSettings: _advancedSettings ?? AdvancedSettings());
+          advancedSettings: advancedSettings ?? AdvancedSettings());
 
   void eject() {
     _currentCassette = null;

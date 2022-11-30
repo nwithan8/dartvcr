@@ -12,11 +12,11 @@ class MatchRules {
   MatchRules() : _rules = [];
 
   static MatchRules get defaultMatchRules {
-    return MatchRules().byMethod().byFullUrl(false);
+    return MatchRules().byMethod().byFullUrl(preserveQueryOrder: false);
   }
 
   static MatchRules get defaultStrictMatchRules {
-    return MatchRules().byMethod().byFullUrl(true).byBody();
+    return MatchRules().byMethod().byFullUrl(preserveQueryOrder: true).byBody();
   }
 
   bool requestsMatch(Request received, Request recorded) {
@@ -39,7 +39,7 @@ class MatchRules {
     return this;
   }
 
-  MatchRules byFullUrl(bool preserveQueryOrder) {
+  MatchRules byFullUrl({bool preserveQueryOrder = false}) {
     _by((Request received, Request recorded) {
       if (preserveQueryOrder) {
         return received.uri.toString() == recorded.uri.toString();
