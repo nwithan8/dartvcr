@@ -7,18 +7,18 @@ import 'mode.dart';
 class VCR {
   Cassette? _currentCassette;
 
-  Mode _mode;
+  Mode mode;
 
   AdvancedSettings? advancedSettings;
 
   VCR({this.advancedSettings})
-      : _mode = Mode.bypass;
+      : mode = Mode.bypass;
 
   String? get cassetteName => _currentCassette?.name;
 
   EasyVCRClient get client => _currentCassette == null
       ? throw Exception('No cassette is loaded')
-      : EasyVCRClient(_currentCassette!, _mode,
+      : EasyVCRClient(_currentCassette!, mode,
           advancedSettings: advancedSettings ?? AdvancedSettings());
 
   void eject() {
@@ -34,18 +34,18 @@ class VCR {
   }
 
   void pause() {
-    _mode = Mode.bypass;
+    mode = Mode.bypass;
   }
 
   void record() {
-    _mode = Mode.record;
+    mode = Mode.record;
   }
 
   void replay() {
-    _mode = Mode.replay;
+    mode = Mode.replay;
   }
 
   void recordIfNeeded() {
-    _mode = Mode.auto;
+    mode = Mode.auto;
   }
 }

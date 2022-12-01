@@ -48,7 +48,7 @@ void main() {
       // Additional setup goes here.
     });
 
-    test('Auto mode test', () async {
+    test('Auto mode', () async {
       Cassette cassette = TestUtils.getCassette("test_auto_mode");
       cassette.erase(); // Erase cassette before recording
 
@@ -66,7 +66,7 @@ void main() {
           0); // Make sure cassette is no longer empty
     });
 
-    test('Read stream test', () async {
+    test('Read stream', () async {
       Cassette cassette = TestUtils.getCassette("test_read_stream");
       cassette.erase(); // Erase cassette before recording
 
@@ -85,7 +85,7 @@ void main() {
       assert((await response.stream.bytesToString()).isNotEmpty);
     });
 
-    test('Censors test', () async {
+    test('Censors', () async {
       Cassette cassette = TestUtils.getCassette("test_censors");
       cassette.erase(); // Erase cassette before recording
 
@@ -114,7 +114,7 @@ void main() {
       assert(headers["date"] == censorString);
     });
 
-    test('Default request matching test', () async {
+    test('Default request matching', () async {
       // test that match by method and url works
       Cassette cassette =
           TestUtils.getCassette("test_default_request_matching");
@@ -142,7 +142,7 @@ void main() {
       assert(responseCameFromRecording(response) == true);
     });
 
-    test('Delay test', () async {
+    test('Delay', () async {
       Cassette cassette = TestUtils.getCassette("test_delay");
       cassette.erase(); // Erase cassette before recording
 
@@ -180,7 +180,7 @@ void main() {
       assert(forcedReplayTime >= requestedDelayWithMarginOfError);
     });
 
-    test('Erase test', () async {
+    test('Erase', () async {
       Cassette cassette = TestUtils.getCassette("test_erase");
 
       // record something to the cassette
@@ -198,7 +198,7 @@ void main() {
       assert(cassette.numberOfInteractions == 0);
     });
 
-    test('Erase and playback test', () async {
+    test('Erase and playback', () async {
       Cassette cassette = TestUtils.getCassette("test_erase_and_playback");
       cassette.erase(); // Erase cassette before recording
 
@@ -208,7 +208,7 @@ void main() {
       expect(service.getIPAddressDataRawResponse(), throwsException);
     });
 
-    test('Erase and record test', () async {
+    test('Erase and record', () async {
       Cassette cassette = TestUtils.getCassette("test_erase_and_record");
       cassette.erase(); // Erase cassette before recording
 
@@ -221,7 +221,7 @@ void main() {
       assert(cassette.numberOfInteractions > 0);
     });
 
-    test('Expiration settings test', () async {
+    test('Expiration settings', () async {
       Cassette cassette = TestUtils.getCassette("test_expiration_settings");
       cassette.erase(); // Erase cassette before recording
 
@@ -229,12 +229,10 @@ void main() {
 
       // record cassette first
       EasyVCRClient client = EasyVCRClient(cassette, Mode.record);
-      FakeDataService service = FakeDataService("json", client: client);
       await client.post(url);
 
       // replay cassette with default expiration rules, should find a match
       client = EasyVCRClient(cassette, Mode.replay);
-      service = FakeDataService("json", client: client);
       http.Response response = await client.post(url);
       assert(responseCameFromRecording(response) == true);
 
@@ -261,7 +259,7 @@ void main() {
           advancedSettings: advancedSettings);
     });
 
-    test('Ignore elements fail match test', () async {
+    test('Ignore elements fail match', () async {
       Cassette cassette =
           TestUtils.getCassette("test_ignore_elements_fail_match");
       cassette.erase(); // Erase cassette before recording
@@ -285,7 +283,7 @@ void main() {
       expect(client.post(url, body: body2), throwsException);
     });
 
-    test('Ignore element pass match test', () async {
+    test('Ignore element pass match', () async {
       Cassette cassette =
           TestUtils.getCassette("test_ignore_elements_pass_match");
       cassette.erase(); // Erase cassette before recording
@@ -317,7 +315,7 @@ void main() {
       assert(responseCameFromRecording(response) == true);
     });
 
-    test('Match settings test', () async {
+    test('Match settings', () async {
       Cassette cassette = TestUtils.getCassette("test_match_settings");
       cassette.erase(); // Erase cassette before recording
 
@@ -343,7 +341,7 @@ void main() {
           throwsException);
     });
 
-    test('Nested censoring test', () async {
+    test('Nested censoring', () async {
       Cassette cassette = TestUtils.getCassette("test_nested_censoring");
       cassette.erase(); // Erase cassette before recording
 
@@ -366,7 +364,7 @@ void main() {
       // NOTE: Have to manually check the cassette
     });
 
-    test('Strict request matching test', () async {
+    test('Strict request matching', () async {
       Cassette cassette = TestUtils.getCassette("test_strict_request_matching");
       cassette.erase(); // Erase cassette before recording
 
@@ -399,13 +397,11 @@ void main() {
       // Additional setup goes here.
     });
 
-    test('Advanced settings test', () async {
+    test('Advanced settings', () async {
       String censorString = "censored-by-test";
       AdvancedSettings advancedSettings = AdvancedSettings(
-          censors: Censors(censorString: censorString).censorHeaderElementsByKeys(
-            ["date"]
-          )
-      );
+          censors: Censors(censorString: censorString)
+              .censorHeaderElementsByKeys(["date"]));
       VCR vcr = VCR(advancedSettings: advancedSettings);
 
       // test that the advanced settings are applied inside the VCR
@@ -428,13 +424,14 @@ void main() {
       // so, we need to re-grab the VCR client and re-create the FakeDataService
       client = vcr.client;
       service = FakeDataService("json", client: client);
-      http.StreamedResponse response = await service.getIPAddressDataRawResponse();
+      http.StreamedResponse response =
+          await service.getIPAddressDataRawResponse();
       Map<String, String> headers = response.headers;
       assert(headers.containsKey("date"));
       assert(headers["date"] == censorString);
     });
 
-    test("Cassette name test", () async {
+    test("Cassette name", () async {
       String cassetteName = "test_vcr_cassette_name";
       Cassette cassette = TestUtils.getCassette(cassetteName);
       VCR vcr = TestUtils.getSimpleVCR(Mode.bypass);
@@ -444,7 +441,7 @@ void main() {
       assert(vcr.cassetteName == cassetteName);
     });
 
-    test("Cassette swap test", () async {
+    test("Cassette swap", () async {
       String cassette1Name = "test_vcr_cassette_swap_1";
       String cassette2Name = "test_vcr_cassette_swap_2";
 
@@ -462,7 +459,7 @@ void main() {
       assert(vcr.cassetteName == cassette2Name);
     });
 
-    test("VCR client test", () async {
+    test("VCR client", () async {
       Cassette cassette = TestUtils.getCassette("test_vcr_client");
       VCR vcr = TestUtils.getSimpleVCR(Mode.bypass);
       vcr.insert(cassette);
@@ -472,6 +469,130 @@ void main() {
       EasyVCRClient client = vcr.client;
     });
 
+    test("VCR client handoff", () async {
+      Cassette cassette = TestUtils.getCassette("test_vcr_client_handoff");
+      VCR vcr = TestUtils.getSimpleVCR(Mode.bypass);
+      vcr.insert(cassette);
 
+      // test that we can still control the VCR even after it's been handed off to the service using it
+      FakeDataService service = FakeDataService("json", vcr: vcr);
+      // Client should come from VCR, which has a client because it has a cassette.
+      EasyVCRClient client = service.client;
+
+      vcr.eject();
+      // Client should be null because the VCR's cassette has been ejected.
+      expect(() => service.client, throwsException);
+    });
+
+    test("No cassette when retrieving client", () async {
+      VCR vcr = TestUtils.getSimpleVCR(Mode.bypass);
+      // Client should be null because the VCR has no cassette.
+      expect(() => vcr.client, throwsException);
+    });
+
+    test("Eject cassette", () async {
+      Cassette cassette = TestUtils.getCassette("test_vcr_eject_cassette");
+      VCR vcr = TestUtils.getSimpleVCR(Mode.bypass);
+      vcr.insert(cassette);
+
+      // make sure the cassette is set correctly
+      assert(vcr.cassetteName == cassette.name);
+
+      vcr.eject();
+      // make sure the cassette is set to null after ejecting
+      assert(vcr.cassetteName == null);
+    });
+
+    test("Erase cassette in VCR", () async {
+      Cassette cassette = TestUtils.getCassette("test_vcr_erase_cassette");
+      cassette.erase(); // Erase cassette before recording
+      VCR vcr = TestUtils.getSimpleVCR(Mode.record);
+      vcr.insert(cassette);
+
+      // record a request to a cassette
+      FakeDataService service = FakeDataService("json", vcr: vcr);
+      await service.getIPAddressDataRawResponse();
+
+      // make sure the cassette is not empty
+      assert(cassette.numberOfInteractions > 0);
+
+      // erase the cassette
+      vcr.erase();
+      assert(cassette.numberOfInteractions == 0);
+    });
+
+    test("Insert cassette into VCR", () async {
+      Cassette cassette = TestUtils.getCassette("test_vcr_insert_cassette");
+      VCR vcr = TestUtils.getSimpleVCR(Mode.bypass);
+
+      // make sure there is no cassette in the VCR
+      assert(vcr.cassetteName == null);
+
+      vcr.insert(cassette);
+      // make sure the cassette is set correctly
+      assert(vcr.cassetteName == cassette.name);
+    });
+
+    test("VCR modes", () async {
+      VCR vcr = TestUtils.getSimpleVCR(Mode.bypass);
+      assert(vcr.mode == Mode.bypass);
+      vcr.record();
+      assert(vcr.mode == Mode.record);
+      vcr.replay();
+      assert(vcr.mode == Mode.replay);
+      vcr.pause();
+      assert(vcr.mode == Mode.bypass);
+      vcr.recordIfNeeded();
+      assert(vcr.mode == Mode.auto);
+    });
+
+    test("VCR record", () async {
+      Cassette cassette = TestUtils.getCassette("test_vcr_record");
+      cassette.erase(); // Erase cassette before recording
+      VCR vcr = TestUtils.getSimpleVCR(Mode.record);
+      vcr.insert(cassette);
+      FakeDataService service = FakeDataService("json", vcr: vcr);
+
+      // make sure the cassette is empty
+      assert(cassette.numberOfInteractions == 0);
+
+      // record a request to a cassette
+      await service.getIPAddressDataRawResponse();
+
+      // make sure the cassette is not empty
+      assert(cassette.numberOfInteractions > 0);
+    });
+
+    test("VCR replay", () async {
+      Cassette cassette = TestUtils.getCassette("test_vcr_replay");
+      VCR vcr = TestUtils.getSimpleVCR(Mode.record);
+      vcr.insert(cassette);
+      FakeDataService service = FakeDataService("json", vcr: vcr);
+
+      // record a request to a cassette first
+      await service.getIPAddressDataRawResponse();
+      assert(cassette.numberOfInteractions > 0);
+
+      // replay the request from the cassette
+      vcr.replay();
+      http.StreamedResponse response = await service.getIPAddressDataRawResponse();
+      assert(response.statusCode == 200);
+
+      // double check by erasing the cassette and trying to replay
+      vcr.erase();
+      assert(cassette.numberOfInteractions == 0);
+      // should throw an exception because there's no matching interaction now
+      expect(() => service.getIPAddressDataRawResponse(), throwsException);
+    });
+
+    test("VCR request", () async {
+      Cassette cassette = TestUtils.getCassette("test_vcr_request");
+      VCR vcr = TestUtils.getSimpleVCR(Mode.bypass);
+      vcr.insert(cassette);
+      FakeDataService service = FakeDataService("json", vcr: vcr);
+
+      http.StreamedResponse response = await service.getIPAddressDataRawResponse();
+      assert(response.statusCode == 200);
+    });
   });
 }
