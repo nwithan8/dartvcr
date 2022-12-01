@@ -1,7 +1,7 @@
 name: dartvcr
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
-# homepage: https://www.example.com
+description: A Dart library for recording and replaying HTTP requests. Port of EasyVCR.
+version: 0.1.0
+repository: https://github.com/nwithan8/dartvcr
 
 environment:
   sdk: '>=2.18.2 <3.0.0'
