@@ -1,4 +1,4 @@
-import 'package:dartvcr/src/advanced_settings.dart';
+import 'package:dartvcr/src/advanced_options.dart';
 import 'package:dartvcr/src/defaults.dart';
 import 'package:dartvcr/src/expiration_actions.dart';
 import 'package:dartvcr/src/request_elements/http_interaction.dart';
@@ -10,19 +10,19 @@ import 'package:http/http.dart' as http;
 import 'cassette.dart';
 import 'mode.dart';
 
-class EasyVCRClient extends http.BaseClient {
+class DartVCRClient extends http.BaseClient {
   final http.Client _client;
 
   final Cassette _cassette;
 
   final Mode _mode;
 
-  final AdvancedSettings _advancedSettings;
+  final AdvancedOptions _advancedOptions;
 
-  EasyVCRClient(this._cassette, this._mode,
-      {AdvancedSettings? advancedSettings})
+  DartVCRClient(this._cassette, this._mode,
+      {AdvancedOptions? advancedOptions})
       : _client = http.Client(),
-        _advancedSettings = advancedSettings ?? AdvancedSettings();
+        _advancedOptions = advancedOptions ?? AdvancedOptions();
 
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
@@ -38,9 +38,9 @@ class EasyVCRClient extends http.BaseClient {
           throw VCRException(
               "No matching interaction found for request ${request.method} ${request.url}");
         }
-        if (_advancedSettings.validTimeFrame
+        if (_advancedOptions.validTimeFrame
             .hasLapsed(replayInteraction.recordedAt)) {
-          switch (_advancedSettings.whenExpired) {
+          switch (_advancedOptions.whenExpired) {
             case ExpirationAction.warn:
               // just throw a warning
               // will still simulate delay below
@@ -59,17 +59,17 @@ class EasyVCRClient extends http.BaseClient {
         // simulate delay if configured
         await _simulateDelay(replayInteraction);
         // return matching interaction's response
-        return replayInteraction.toStreamedResponse(_advancedSettings.censors);
+        return replayInteraction.toStreamedResponse(_advancedOptions.censors);
 
       case Mode.auto:
         // try to get recorded request, fallback to live request + record
         HttpInteraction? replayInteraction = _findMatchingInteraction(request);
         if (replayInteraction != null) {
           // found a matching interaction
-          if (_advancedSettings.validTimeFrame
+          if (_advancedOptions.validTimeFrame
               .hasLapsed(replayInteraction.recordedAt)) {
             // interaction has expired
-            switch (_advancedSettings.whenExpired) {
+            switch (_advancedOptions.whenExpired) {
               case ExpirationAction.warn:
                 // just throw a warning
                 // will still simulate delay below
@@ -88,7 +88,7 @@ class EasyVCRClient extends http.BaseClient {
           await _simulateDelay(replayInteraction);
           // return matching interaction's response
           return replayInteraction
-              .toStreamedResponse(_advancedSettings.censors);
+              .toStreamedResponse(_advancedOptions.censors);
         }
 
         // no matching interaction found, make real request, record response
@@ -104,10 +104,10 @@ class EasyVCRClient extends http.BaseClient {
     List<HttpInteraction> interactions = _cassette.read();
 
     Request receivedRequest =
-        Request.fromHttpRequest(request, _advancedSettings.censors);
+        Request.fromHttpRequest(request, _advancedOptions.censors);
 
     try {
-      return interactions.firstWhere((interaction) => _advancedSettings
+      return interactions.firstWhere((interaction) => _advancedOptions
           .matchRules
           .requestsMatch(receivedRequest, interaction.request));
     } catch (e) {
@@ -122,9 +122,9 @@ class EasyVCRClient extends http.BaseClient {
     http.StreamedResponse streamedResponse = await _client.send(request);
     stopwatch.stop();
     http.Response response =
-        await Response.fromStream(streamedResponse, _advancedSettings.censors);
+        await Response.fromStream(streamedResponse, _advancedOptions.censors);
     HttpInteraction interaction =
-        HttpInteraction.fromHttpResponse(response, _advancedSettings.censors);
+        HttpInteraction.fromHttpResponse(response, _advancedOptions.censors);
     interaction.duration = stopwatch
         .elapsedMilliseconds; // add duration to interaction before saving
     interaction.response.headers.addAll(
@@ -132,17 +132,17 @@ class EasyVCRClient extends http.BaseClient {
     _cassette.update(interaction);
 
     // need to rebuild a new streamedResponse since this one has already been read
-    return Response.toStream(response, _advancedSettings.censors);
+    return Response.toStream(response, _advancedOptions.censors);
   }
 
   Future _simulateDelay(HttpInteraction interaction) async {
     int delay = 0;
-    if (_advancedSettings.simulateDelay == true) {
+    if (_advancedOptions.simulateDelay == true) {
       // original delay takes precedence
       delay = interaction.duration;
     } else {
       // otherwise use manual delay
-      delay = _advancedSettings.manualDelay;
+      delay = _advancedOptions.manualDelay;
     }
     await Future.delayed(Duration(milliseconds: delay));
   }

@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:dartvcr/src/advanced_settings.dart';
+import 'package:dartvcr/src/advanced_options.dart';
 import 'package:dartvcr/src/cassette.dart';
-import 'package:dartvcr/src/easyvcr_client.dart';
+import 'package:dartvcr/src/dartvcr_client.dart';
 import 'package:dartvcr/src/match_rules.dart';
 import 'package:dartvcr/src/mode.dart';
 import 'package:dartvcr/src/vcr.dart';
@@ -12,13 +12,13 @@ class TestUtils {
     return Cassette(_getDirectoryInCurrentDirectory('cassettes'), cassetteName);
   }
 
-  static EasyVCRClient getSimpleClient(String cassetteName, Mode mode) {
+  static DartVCRClient getSimpleClient(String cassetteName, Mode mode) {
     Cassette cassette = getCassette(cassetteName);
-    return EasyVCRClient(cassette, mode);
+    return DartVCRClient(cassette, mode);
   }
 
   static VCR getSimpleVCR(Mode mode) {
-    VCR vcr = VCR(advancedSettings: AdvancedSettings(
+    VCR vcr = VCR(advancedOptions: AdvancedOptions(
       matchRules: MatchRules.defaultStrictMatchRules
     ));
 

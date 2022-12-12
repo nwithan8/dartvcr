@@ -4,7 +4,7 @@ import 'package:dartvcr/src/time_frame.dart';
 import 'censors.dart';
 import 'expiration_actions.dart';
 
-class AdvancedSettings {
+class AdvancedOptions {
   final Censors censors;
 
   final MatchRules matchRules;
@@ -17,7 +17,7 @@ class AdvancedSettings {
 
   final ExpirationAction whenExpired;
 
-  AdvancedSettings(
+  AdvancedOptions(
       {Censors? censors,
       MatchRules? matchRules,
       int? manualDelay,

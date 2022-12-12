@@ -1,17 +1,6 @@
 import 'dart:math';
 
-import 'package:dartvcr/src/advanced_settings.dart';
-import 'package:dartvcr/src/cassette.dart';
-import 'package:dartvcr/src/censor_element.dart';
-import 'package:dartvcr/src/censors.dart';
-import 'package:dartvcr/src/easyvcr_client.dart';
-import 'package:dartvcr/src/expiration_actions.dart';
-import 'package:dartvcr/src/match_rules.dart';
-import 'package:dartvcr/src/mode.dart';
-import 'package:dartvcr/src/time_frame.dart';
-import 'package:dartvcr/src/utilities.dart';
-import 'package:dartvcr/src/vcr.dart';
-import 'package:dartvcr/src/vcr_exception.dart';
+import 'package:dartvcr/dartvcr.dart';
 import 'package:test/test.dart';
 
 import 'package:http/http.dart' as http;
@@ -22,9 +11,9 @@ import 'test_utils.dart';
 
 Future<IPAddressData?> getIPAddressDataRequest(
     Cassette cassette, Mode mode) async {
-  EasyVCRClient client = EasyVCRClient(cassette, mode,
-      advancedSettings:
-          AdvancedSettings(matchRules: MatchRules.defaultStrictMatchRules));
+  DartVCRClient client = DartVCRClient(cassette, mode,
+      advancedOptions:
+          AdvancedOptions(matchRules: MatchRules.defaultStrictMatchRules));
 
   FakeDataService service = FakeDataService("json", client: client);
 
@@ -33,9 +22,9 @@ Future<IPAddressData?> getIPAddressDataRequest(
 
 Future<http.StreamedResponse> getIPAddressDataRawRequest(
     Cassette cassette, Mode mode) async {
-  EasyVCRClient client = EasyVCRClient(cassette, mode,
-      advancedSettings:
-          AdvancedSettings(matchRules: MatchRules.defaultStrictMatchRules));
+  DartVCRClient client = DartVCRClient(cassette, mode,
+      advancedOptions:
+          AdvancedOptions(matchRules: MatchRules.defaultStrictMatchRules));
 
   FakeDataService service = FakeDataService("json", client: client);
 
@@ -91,19 +80,19 @@ void main() {
 
       // set up advanced settings
       String censorString = "censored-by-test";
-      AdvancedSettings advancedSettings = AdvancedSettings(
+      AdvancedOptions advancedOptions = AdvancedOptions(
           censors: Censors(censorString: censorString)
               .censorHeaderElementsByKeys(["date"]));
 
       // record cassette with advanced settings first
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record,
-          advancedSettings: advancedSettings);
+      DartVCRClient client = DartVCRClient(cassette, Mode.record,
+          advancedOptions: advancedOptions);
       FakeDataService service = FakeDataService("json", client: client);
       await service.getIPAddressDataRawResponse();
 
       // now replay cassette
-      client = EasyVCRClient(cassette, Mode.replay,
-          advancedSettings: advancedSettings);
+      client = DartVCRClient(cassette, Mode.replay,
+          advancedOptions: advancedOptions);
       service = FakeDataService("json", client: client);
       http.StreamedResponse response =
           await service.getIPAddressDataRawResponse();
@@ -124,8 +113,8 @@ void main() {
       String postBody = "test post body";
 
       // record cassette first
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record,
-          advancedSettings: AdvancedSettings(
+      DartVCRClient client = DartVCRClient(cassette, Mode.record,
+          advancedOptions: AdvancedOptions(
               matchRules: MatchRules
                   .defaultMatchRules) // doesn't really matter for initial record
           );
@@ -133,9 +122,9 @@ void main() {
       assert(responseCameFromRecording(response) == false);
 
       // replay cassette
-      client = EasyVCRClient(cassette, Mode.replay,
-          advancedSettings:
-              AdvancedSettings(matchRules: MatchRules.defaultMatchRules));
+      client = DartVCRClient(cassette, Mode.replay,
+          advancedOptions:
+              AdvancedOptions(matchRules: MatchRules.defaultMatchRules));
       response = await client.post(url, body: postBody);
 
       // check that the request body was matched and that a recording was used
@@ -147,12 +136,12 @@ void main() {
       cassette.erase(); // Erase cassette before recording
 
       // record cassette first
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record);
+      DartVCRClient client = DartVCRClient(cassette, Mode.record);
       FakeDataService service = FakeDataService("json", client: client);
       await service.getIPAddressDataRawResponse();
 
       // baseline - how much time does it take to replay the cassette?
-      client = EasyVCRClient(cassette, Mode.replay);
+      client = DartVCRClient(cassette, Mode.replay);
       service = FakeDataService("json", client: client);
       Stopwatch stopwatch = Stopwatch()..start();
       await service.getIPAddressDataRawResponse();
@@ -164,8 +153,8 @@ void main() {
       // set up advanced settings
       int delay = normalReplayTime +
           3000; // add 3 seconds to the normal replay time, for good measure
-      client = EasyVCRClient(cassette, Mode.replay,
-          advancedSettings: AdvancedSettings(manualDelay: delay));
+      client = DartVCRClient(cassette, Mode.replay,
+          advancedOptions: AdvancedOptions(manualDelay: delay));
       service = FakeDataService("json", client: client);
 
       // time replay request
@@ -184,7 +173,7 @@ void main() {
       Cassette cassette = TestUtils.getCassette("test_erase");
 
       // record something to the cassette
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record);
+      DartVCRClient client = DartVCRClient(cassette, Mode.record);
       FakeDataService service = FakeDataService("json", client: client);
       await service.getIPAddressDataRawResponse();
 
@@ -203,7 +192,7 @@ void main() {
       cassette.erase(); // Erase cassette before recording
 
       // cassette is empty, so replaying should throw an exception
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.replay);
+      DartVCRClient client = DartVCRClient(cassette, Mode.replay);
       FakeDataService service = FakeDataService("json", client: client);
       expect(service.getIPAddressDataRawResponse(), throwsException);
     });
@@ -213,7 +202,7 @@ void main() {
       cassette.erase(); // Erase cassette before recording
 
       // cassette is empty, so recording should work
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record);
+      DartVCRClient client = DartVCRClient(cassette, Mode.record);
       FakeDataService service = FakeDataService("json", client: client);
       await service.getIPAddressDataRawResponse();
 
@@ -228,16 +217,16 @@ void main() {
       Uri url = Uri.parse("https://google.com");
 
       // record cassette first
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record);
+      DartVCRClient client = DartVCRClient(cassette, Mode.record);
       await client.post(url);
 
       // replay cassette with default expiration rules, should find a match
-      client = EasyVCRClient(cassette, Mode.replay);
+      client = DartVCRClient(cassette, Mode.replay);
       http.Response response = await client.post(url);
       assert(responseCameFromRecording(response) == true);
 
       // replay cassette with custom expiration rules, should not find a match because recording is expired (throw exception)
-      AdvancedSettings advancedSettings = AdvancedSettings(
+      AdvancedOptions advancedOptions = AdvancedOptions(
           validTimeFrame: TimeFrame.never,
           whenExpired: ExpirationAction
               .throwException // throw exception when in replay mode
@@ -245,18 +234,18 @@ void main() {
       await Future.delayed(Duration(
           milliseconds:
               1000)); // Allow 1 second to lapse to ensure recording is now "expired"
-      client = EasyVCRClient(cassette, Mode.replay,
-          advancedSettings: advancedSettings);
+      client = DartVCRClient(cassette, Mode.replay,
+          advancedOptions: advancedOptions);
       expect(client.post(url), throwsException);
 
       // replay cassette with bad expiration rules, should throw an exception because settings are bad
-      advancedSettings = AdvancedSettings(
+      advancedOptions = AdvancedOptions(
           validTimeFrame: TimeFrame.never,
           whenExpired: ExpirationAction
               .recordAgain // invalid settings for replay mode, should throw exception
           );
-      client = EasyVCRClient(cassette, Mode.replay,
-          advancedSettings: advancedSettings);
+      client = DartVCRClient(cassette, Mode.replay,
+          advancedOptions: advancedOptions);
     });
 
     test('Ignore elements fail match', () async {
@@ -271,12 +260,12 @@ void main() {
           "{\"name\": \"Different Name\",\n    \"company\": \"EasyPost\"}";
 
       // record baseline request first
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record);
+      DartVCRClient client = DartVCRClient(cassette, Mode.record);
       await client.post(url, body: body1);
 
       // try to replay the request with different body data
-      client = EasyVCRClient(cassette, Mode.replay,
-          advancedSettings: AdvancedSettings(
+      client = DartVCRClient(cassette, Mode.replay,
+          advancedOptions: AdvancedOptions(
               matchRules: MatchRules().byBody().byMethod().byFullUrl()));
 
       // should fail since we're strictly in replay mode and there's no exact match
@@ -295,7 +284,7 @@ void main() {
           "{\"name\": \"Different Name\",\n    \"company\": \"EasyPost\"}";
 
       // record baseline request first
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record);
+      DartVCRClient client = DartVCRClient(cassette, Mode.record);
       await client.post(url, body: body1);
 
       List<CensorElement> ignoreElements = [
@@ -303,8 +292,8 @@ void main() {
       ];
 
       // try to replay the request with different body data, but ignoring the differences
-      client = EasyVCRClient(cassette, Mode.replay,
-          advancedSettings: AdvancedSettings(
+      client = DartVCRClient(cassette, Mode.replay,
+          advancedOptions: AdvancedOptions(
               matchRules: MatchRules()
                   .byBody(ignoreElements: ignoreElements)
                   .byMethod()
@@ -322,20 +311,20 @@ void main() {
       Uri url = Uri.parse("https://google.com");
 
       // record cassette first
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record);
+      DartVCRClient client = DartVCRClient(cassette, Mode.record);
       await client.post(url);
 
       // replay cassette with default match rules, should find a match
-      client = EasyVCRClient(cassette, Mode.replay);
+      client = DartVCRClient(cassette, Mode.replay);
       // add custom header to request, shouldn't matter when matching by default rules
       // shouldn't throw an exception
       await client.post(url, headers: {"X-Custom-Header": "custom-value"});
 
       // replay cassette with custom match rules, should not find a match because request is different (throw exception)
-      AdvancedSettings advancedSettings =
-          AdvancedSettings(matchRules: MatchRules().byEverything());
-      client = EasyVCRClient(cassette, Mode.replay,
-          advancedSettings: advancedSettings);
+      AdvancedOptions advancedOptions =
+          AdvancedOptions(matchRules: MatchRules().byEverything());
+      client = DartVCRClient(cassette, Mode.replay,
+          advancedOptions: advancedOptions);
       // add custom header to request, causing a match failure when matching by everything
       expect(client.post(url, headers: {"X-Custom-Header": "custom-value"}),
           throwsException);
@@ -354,11 +343,11 @@ void main() {
       Censors censors = Censors(censorString: censorString);
       censors.censorBodyElementsByKeys(
           ["nested_dict_1_1_1", "nested_dict_2_2", "nested_array", "null_key"]);
-      AdvancedSettings advancedSettings = AdvancedSettings(censors: censors);
+      AdvancedOptions advancedOptions = AdvancedOptions(censors: censors);
 
       // record cassette
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record,
-          advancedSettings: advancedSettings);
+      DartVCRClient client = DartVCRClient(cassette, Mode.record,
+          advancedOptions: advancedOptions);
       await client.post(url, body: body);
 
       // NOTE: Have to manually check the cassette
@@ -373,18 +362,18 @@ void main() {
           "{\n  \"address\": {\n    \"name\": \"Jack Sparrow\",\n    \"company\": \"EasyPost\",\n    \"street1\": \"388 Townsend St\",\n    \"street2\": \"Apt 20\",\n    \"city\": \"San Francisco\",\n    \"state\": \"CA\",\n    \"zip\": \"94107\",\n    \"country\": \"US\",\n    \"phone\": \"5555555555\"\n  }\n}";
 
       // record cassette first
-      EasyVCRClient client = EasyVCRClient(cassette, Mode.record);
+      DartVCRClient client = DartVCRClient(cassette, Mode.record);
       http.Response response = await client.post(url, body: body);
       // check that the request body was not matched (should be a live call)
       assert(responseCameFromRecording(response) == false);
 
       // replay cassette with default match rules, should find a match
-      client = EasyVCRClient(cassette, Mode.replay);
+      client = DartVCRClient(cassette, Mode.replay);
 
       // replay cassette
-      client = EasyVCRClient(cassette, Mode.replay,
-          advancedSettings:
-              AdvancedSettings(matchRules: MatchRules.defaultStrictMatchRules));
+      client = DartVCRClient(cassette, Mode.replay,
+          advancedOptions:
+              AdvancedOptions(matchRules: MatchRules.defaultStrictMatchRules));
       response = await client.post(url, body: body);
 
       // check that the request body was matched
@@ -399,13 +388,13 @@ void main() {
 
     test('Advanced settings', () async {
       String censorString = "censored-by-test";
-      AdvancedSettings advancedSettings = AdvancedSettings(
+      AdvancedOptions advancedOptions = AdvancedOptions(
           censors: Censors(censorString: censorString)
               .censorHeaderElementsByKeys(["date"]));
-      VCR vcr = VCR(advancedSettings: advancedSettings);
+      VCR vcr = VCR(advancedOptions: advancedOptions);
 
       // test that the advanced settings are applied inside the VCR
-      assert(vcr.advancedSettings == advancedSettings);
+      assert(vcr.advancedOptions == advancedOptions);
 
       // test that the advanced settings are passed to the cassette by checking if censor is applied
       Cassette cassette = TestUtils.getCassette("test_vcr_advanced_settings");
@@ -414,7 +403,7 @@ void main() {
 
       // record cassette first
       vcr.record();
-      EasyVCRClient client = vcr.client;
+      DartVCRClient client = vcr.client;
       FakeDataService service = FakeDataService("json", client: client);
       await service.getIPAddressDataRawResponse();
 
@@ -466,7 +455,7 @@ void main() {
 
       // make sure the VCR client is set correctly
       // no exception thrown when retrieving the client
-      EasyVCRClient client = vcr.client;
+      DartVCRClient client = vcr.client;
     });
 
     test("VCR client handoff", () async {
@@ -477,7 +466,7 @@ void main() {
       // test that we can still control the VCR even after it's been handed off to the service using it
       FakeDataService service = FakeDataService("json", vcr: vcr);
       // Client should come from VCR, which has a client because it has a cassette.
-      EasyVCRClient client = service.client;
+      DartVCRClient client = service.client;
 
       vcr.eject();
       // Client should be null because the VCR's cassette has been ejected.

@@ -1,4 +1,4 @@
-const String viaRecordingHeaderKey = "X-Via-EasyVCR-Recording";
+const String viaRecordingHeaderKey = "X-Via-DartVCR-Recording";
 
 Map<String, String> get replayHeaders => {
       viaRecordingHeaderKey: "true",
