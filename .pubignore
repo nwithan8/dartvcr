@@ -11,6 +11,3 @@ pubspec.lock
 
 # Ignore cassettes
 cassettes/
-
-# Ignore tests
-tests/
