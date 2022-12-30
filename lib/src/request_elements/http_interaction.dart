@@ -1,13 +1,14 @@
 import 'dart:convert';
 
 import 'package:dartvcr/src/censors.dart';
-import 'package:dartvcr/src/defaults.dart';
 import 'package:dartvcr/src/request_elements/http_element.dart';
 import 'package:dartvcr/src/request_elements/request.dart';
 import 'package:dartvcr/src/request_elements/response.dart';
 import 'package:dartvcr/src/request_elements/status.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:http/http.dart' as http;
+
+import '../internal_utilities/content_type.dart';
 
 part 'http_interaction.g.dart';
 
@@ -44,14 +45,39 @@ class HttpInteraction extends HttpElement {
     return streamedResponse;
   }
 
-  factory HttpInteraction.fromHttpResponse(http.Response response, Censors censors) {
+  factory HttpInteraction.fromHttpResponse(
+      http.Response response, Censors censors) {
     final requestBody = ((response.request!) as http.Request).body;
+    ContentType? requestBodyContentType =
+        determineContentType(requestBody) ?? ContentType.text;
+    final censoredRequestBody =
+        censors.applyBodyParameterCensors(requestBody, requestBodyContentType);
+
     final responseBody = response.body;
-    final headers = censors.applyHeaderCensors(response.headers);
+    ContentType? responseBodyContentType =
+        determineContentType(responseBody) ?? ContentType.text;
+    final censoredResponseBody = censors.applyBodyParameterCensors(
+        responseBody, responseBodyContentType);
+
+    final requestHeaders = response.request!.headers;
+    final censoredRequestHeaders = censors.applyHeaderCensors(requestHeaders);
+
+    final responseHeaders = response.headers;
+    final censoredResponseHeaders = censors.applyHeaderCensors(responseHeaders);
+
+    final requestUrl = response.request!.url;
+    final censorRequestUrl = censors.applyQueryCensors(requestUrl.toString());
+
+    final requestMethod = response.request!.method;
+
     final status = Status(response.statusCode, response.reasonPhrase);
-    final request =
-        Request(requestBody, headers, response.request!.method, response.request!.url);
+
+    final censoredRequest = Request(censoredRequestBody, censoredRequestHeaders,
+        requestMethod, Uri.parse(censorRequestUrl));
+    final censoredResponse =
+        Response(censoredResponseBody, censoredResponseHeaders, status);
+
     return HttpInteraction(
-        0, DateTime.now(), request, Response(responseBody, headers, status));
+        0, DateTime.now(), censoredRequest, censoredResponse);
   }
 }
