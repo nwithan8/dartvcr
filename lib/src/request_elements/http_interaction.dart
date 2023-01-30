@@ -31,6 +31,7 @@ class HttpInteraction extends HttpElement {
   factory HttpInteraction.fromJson(Map<String, dynamic> input) =>
       _$HttpInteractionFromJson(input);
 
+  @override
   Map<String, dynamic> toJson() => _$HttpInteractionToJson(this);
 
   http.StreamedResponse toStreamedResponse(Censors censors) {
@@ -40,7 +41,7 @@ class HttpInteraction extends HttpElement {
       reasonPhrase: response.status.message,
       contentLength: response.body?.length,
       request: http.Request(request.method, request.uri),
-      headers: censors.applyHeaderCensors(response.headers ?? {}),
+      headers: censors.applyHeaderCensors(response.headers),
     );
     return streamedResponse;
   }

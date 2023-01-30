@@ -17,5 +17,6 @@ class Status extends HttpElement {
   factory Status.fromJson(Map<String, dynamic> input) =>
       _$StatusFromJson(input);
 
+  @override
   Map<String, dynamic> toJson() => _$StatusToJson(this);
 }

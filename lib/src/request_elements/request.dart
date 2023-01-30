@@ -26,6 +26,7 @@ class Request extends HttpElement {
   factory Request.fromJson(Map<String, dynamic> input) =>
       _$RequestFromJson(input);
 
+  @override
   Map<String, dynamic> toJson() => _$RequestToJson(this);
 
   factory Request.fromHttpRequest(http.BaseRequest request, Censors censors) {

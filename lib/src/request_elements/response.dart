@@ -1,5 +1,4 @@
 import 'package:dartvcr/src/censors.dart';
-import 'package:dartvcr/src/defaults.dart';
 import 'package:dartvcr/src/request_elements/status.dart';
 import 'package:http/http.dart' as http;
 import 'package:json_annotation/json_annotation.dart';
@@ -24,6 +23,7 @@ class Response extends HttpElement {
   factory Response.fromJson(Map<String, dynamic> input) =>
       _$ResponseFromJson(input);
 
+  @override
   Map<String, dynamic> toJson() => _$ResponseToJson(this);
 
   static Future<http.StreamedResponse> toStream(http.Response response, Censors censors) async {
