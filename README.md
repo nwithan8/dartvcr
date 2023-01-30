@@ -7,6 +7,14 @@ DartVCR is a library for recording and replaying HTTP interactions in your test 
 This can be useful for speeding up your test suite, or for running your tests on a CI server which doesn't have
 connectivity to the HTTP endpoints you need to interact with.
 
+## Installation
+
+`dartvcr` is available on [pub.dev](https://pub.dev/packages/dartvcr).
+
+## Usage
+
+Below are highlights of the features available in `DartVCR`. For more detailed information, see the full documentation on [Pub.dev](https://pub.dev/documentation/dartvcr/latest/) or [GitHub](https://nateharr.is/dartvcr/)
+
 ## How to use DartVCR
 
 #### Step 1.

@@ -11,3 +11,6 @@ pubspec.lock
 
 # Ignore cassettes
 cassettes
+
+# Ignore generated documentation
+/doc/
