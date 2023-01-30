@@ -30,7 +30,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@2.0.0
         with:
           find: "VERSIONADDEDBYGITHUB"
-          replace: "${{ github.ref_name }}"
+          replace: "${{ github.events.inputs.version || github.ref_name }}"
           regex: false
 
       # Minimal package setup

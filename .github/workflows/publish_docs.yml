@@ -23,12 +23,16 @@ jobs:
       # Setup Dart SDK
       - uses: dart-lang/setup-dart@main
 
+      # Set version number
+      - name: Set version number
+        run: echo "VERSIONADDEDBYGITHUB=${{ github.ref_name }}" >> $GITHUB_ENV
+
       # Update version number
       - name: Update version number
         uses: jacobtomlinson/gha-find-replace@2.0.0
         with:
           find: "VERSIONADDEDBYGITHUB"
-          replace: "${{ github.ref_name }}"
+          replace: "${{ github.events.inputs.version || github.ref_name }}"
           regex: false
 
       # Minimal package setup
