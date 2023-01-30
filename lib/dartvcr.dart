@@ -1,6 +1,5 @@
 library dartvcr;
 
-// TODO: Export any libraries intended for clients of this package.
 export 'src/advanced_options.dart';
 export 'src/cassette.dart';
 export 'src/censor_element.dart';

@@ -11,3 +11,24 @@ pubspec.lock
 
 # Ignore cassettes
 cassettes/
+
+# Ignore unit tests
+test/
+
+# Ignore GitHub Actions
+.github/
+
+# Ignore VS Code
+.vscode/
+
+# Ignore IntelliJ
+.idea/
+
+# Ignore Android Studio
+*.iml
+
+# Ignore MacOS
+.DS_Store
+
+# Ignore documentation
+doc/
