@@ -1,8 +1,12 @@
 name: Publish package
 
 on:
-  release:
-    types: [ created ]
+  workflow_dispatch:
+    inputs:
+      version:
+        type: string
+        description: Version number
+        required: true
 
 jobs:
 
@@ -24,7 +28,7 @@ jobs:
         uses: jacobtomlinson/gha-find-replace@2.0.0
         with:
           find: "VERSIONADDEDBYGITHUB"
-          replace: "${{ github.ref_name }}"
+          replace: "${{ github.events.inputs.version }}"
           regex: false
 
       # Minimal package setup
