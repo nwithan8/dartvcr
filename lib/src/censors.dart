@@ -6,57 +6,73 @@ import 'package:dartvcr/src/vcr_exception.dart';
 import 'censor_element.dart';
 import 'internal_utilities/content_type.dart';
 
+/// A class representing a set of rules to censor elements from requests and responses.
 class Censors {
+  /// The string to replace censored elements with.
   final String _censorString;
 
+  /// The list of elements to censor from request bodies.
   final List<CensorElement> _bodyElementsToCensor;
 
+  /// The list of elements to censor from request headers.
   final List<CensorElement> _headerElementsToCensor;
 
+  /// The list of elements to censor from request query parameters.
   final List<CensorElement> _queryElementsToCensor;
 
+  /// Creates a new [Censors] with the given [censorString].
   Censors({String censorString = "******"})
       : _censorString = censorString,
         _bodyElementsToCensor = [],
         _headerElementsToCensor = [],
         _queryElementsToCensor = [];
 
+  /// Add the given [element] to the list of elements to censor from request bodies.
   Censors censorBodyElements(List<CensorElement> elements) {
     _bodyElementsToCensor.addAll(elements);
     return this;
   }
 
+  /// Add the given [keys] to the list of elements to censor from request bodies.
+  /// If [caseSensitive] is true, the keys will be censored only when matching case exactly.
   Censors censorBodyElementsByKeys(List<String> keys,
       {bool caseSensitive = false}) {
-    _bodyElementsToCensor
-        .addAll(keys.map((key) => CensorElement(key, caseSensitive: caseSensitive)));
+    _bodyElementsToCensor.addAll(
+        keys.map((key) => CensorElement(key, caseSensitive: caseSensitive)));
     return this;
   }
 
+  /// Add the given [element] to the list of elements to censor from request headers.
   Censors censorHeaderElements(List<CensorElement> elements) {
     _headerElementsToCensor.addAll(elements);
     return this;
   }
 
+  /// Add the given [keys] to the list of elements to censor from request headers.
+  /// If [caseSensitive] is true, the keys will be censored only when matching case exactly.
   Censors censorHeaderElementsByKeys(List<String> keys,
       {bool caseSensitive = false}) {
-    _headerElementsToCensor
-        .addAll(keys.map((key) => CensorElement(key, caseSensitive: caseSensitive)));
+    _headerElementsToCensor.addAll(
+        keys.map((key) => CensorElement(key, caseSensitive: caseSensitive)));
     return this;
   }
 
+  /// Add the given [element] to the list of elements to censor from request query parameters.
   Censors censorQueryElements(List<CensorElement> elements) {
     _queryElementsToCensor.addAll(elements);
     return this;
   }
 
+  /// Add the given [keys] to the list of elements to censor from request query parameters.
+  /// If [caseSensitive] is true, the keys will be censored only when matching case exactly.
   Censors censorQueryElementsByKeys(List<String> keys,
       {bool caseSensitive = false}) {
-    _queryElementsToCensor
-        .addAll(keys.map((key) => CensorElement(key, caseSensitive: caseSensitive)));
+    _queryElementsToCensor.addAll(
+        keys.map((key) => CensorElement(key, caseSensitive: caseSensitive)));
     return this;
   }
 
+  /// Applies the body parameter censors to the given [body] with the given [contentType].
   // TODO: Only works on JSON bodies
   String applyBodyParameterCensors(String body, ContentType contentType) {
     if (body.isEmpty) {
@@ -87,6 +103,7 @@ class Censors {
     }
   }
 
+  /// Removes all null values from the given [map].
   Map<String, String> _removeNullValuesFromMap(Map<String, String?> map) {
     Map<String, String> result = {};
     map.forEach((key, value) {
@@ -97,6 +114,7 @@ class Censors {
     return result;
   }
 
+  /// Applies the header censors to the given [headers].
   Map<String, String> applyHeaderCensors(Map<String, String?>? headers) {
     if (headers == null || headers.isEmpty) {
       // short circuit if headers is empty
@@ -112,7 +130,6 @@ class Censors {
 
     headers.forEach((key, value) {
       if (value == null) {
-
       } else if (elementShouldBeCensored(key, _headerElementsToCensor)) {
         newHeaders[key] = _censorString;
       } else {
@@ -123,6 +140,7 @@ class Censors {
     return newHeaders;
   }
 
+  /// Applies the query parameter censors to the given [url].
   String applyQueryCensors(String url) {
     if (_queryElementsToCensor.isEmpty) {
       // short circuit if there are no censors to apply
@@ -151,6 +169,7 @@ class Censors {
     ).toString();
   }
 
+  /// Censors the given [elementsToCensor] in the given [body] with the given [censorString].
   static String censorJsonData(
       String body, String censorString, List<CensorElement> elementsToCensor) {
     try {
@@ -172,8 +191,9 @@ class Censors {
     }
   }
 
-  static Map<String, dynamic> censorMap(Map<String, dynamic> map, String censorString,
-      List<CensorElement> elementsToCensor) {
+  /// Censors the given [elementsToCensor] in the given [map] with the given [censorString].
+  static Map<String, dynamic> censorMap(Map<String, dynamic> map,
+      String censorString, List<CensorElement> elementsToCensor) {
     if (elementsToCensor.isEmpty) {
       // short circuit if there are no censors to apply
       return map;
@@ -216,6 +236,7 @@ class Censors {
     return censoredMap;
   }
 
+  /// Censors the given [elementsToCensor] in the given [list] with the given [censorString].
   static List<dynamic> censorList(List<dynamic> list, String censorString,
       List<CensorElement> elementsToCensor) {
     if (elementsToCensor.isEmpty) {
@@ -241,12 +262,14 @@ class Censors {
     return censoredList;
   }
 
+  /// Returns true if the given [foundKey] exists in the given [elementsToCensor] list.
   static bool elementShouldBeCensored(
       String foundKey, List<CensorElement> elementsToCensor) {
     return elementsToCensor.isNotEmpty &&
         elementsToCensor.any((element) => element.matches(foundKey));
   }
 
+  /// A pre-configured instance of [Censors] that censors nothing.
   static Censors get defaultCensors {
     return Censors();
   }

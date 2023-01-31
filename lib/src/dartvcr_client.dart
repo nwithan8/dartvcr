@@ -10,20 +10,30 @@ import 'package:http/http.dart' as http;
 import 'cassette.dart';
 import 'mode.dart';
 
+/// A [http.BaseClient] that records and replays HTTP interactions.
 class DartVCRClient extends http.BaseClient {
+  /// The internal [http.Client] that will be used to make requests.
   final http.Client _client;
 
+  /// The [Cassette] the client will use during requests.
   final Cassette _cassette;
 
+  /// The [Mode] the client will use during requests.
   final Mode _mode;
 
+  /// The [AdvancedOptions] the client will use during requests.
   final AdvancedOptions _advancedOptions;
 
-  DartVCRClient(this._cassette, this._mode,
-      {AdvancedOptions? advancedOptions})
+  /// Creates a new [DartVCRClient] with the given [Cassette], [Mode] and [AdvancedOptions].
+  DartVCRClient(this._cassette, this._mode, {AdvancedOptions? advancedOptions})
       : _client = http.Client(),
         _advancedOptions = advancedOptions ?? AdvancedOptions();
 
+  /// Simulates an HTTP request and response.
+  /// Makes a real request and records the response if the [Mode] is [Mode.record].
+  /// Drops the request and returns a recorded response if the [Mode] is [Mode.replay].
+  /// Makes a real request and returns the real response if the [Mode] is [Mode.bypass].
+  /// Either makes a real request and records the response, or drops the request and returns a recorded response if the [Mode] is [Mode.auto].
   @override
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     switch (_mode) {
@@ -87,8 +97,7 @@ class DartVCRClient extends http.BaseClient {
           // simulate delay if configured
           await _simulateDelay(replayInteraction);
           // return matching interaction's response
-          return replayInteraction
-              .toStreamedResponse(_advancedOptions.censors);
+          return replayInteraction.toStreamedResponse(_advancedOptions.censors);
         }
 
         // no matching interaction found, make real request, record response
@@ -100,6 +109,7 @@ class DartVCRClient extends http.BaseClient {
     }
   }
 
+  /// Finds a matching recorded [HttpInteraction] for the given [http.BaseRequest].
   HttpInteraction? _findMatchingInteraction(http.BaseRequest request) {
     List<HttpInteraction> interactions = _cassette.read();
 
@@ -115,6 +125,7 @@ class DartVCRClient extends http.BaseClient {
     }
   }
 
+  /// Makes a real request and records the response.
   Future<http.StreamedResponse> _recordRequestAndResponse(
       http.BaseRequest request) async {
     Stopwatch stopwatch = Stopwatch();
@@ -135,6 +146,7 @@ class DartVCRClient extends http.BaseClient {
     return Response.toStream(response, _advancedOptions.censors);
   }
 
+  /// Simulates an HTTP delay if configured to do so.
   Future _simulateDelay(HttpInteraction interaction) async {
     int delay = 0;
     if (_advancedOptions.simulateDelay == true) {

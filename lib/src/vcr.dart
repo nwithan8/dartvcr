@@ -4,7 +4,7 @@ import 'package:dartvcr/src/dartvcr_client.dart';
 import 'cassette.dart';
 import 'mode.dart';
 
-/// A VCR can store consistent settings and control a cassette.
+/// A [VCR] can store consistent settings and control a cassette.
 class VCR {
   /// The cassette that is currently being used.
   Cassette? _currentCassette;

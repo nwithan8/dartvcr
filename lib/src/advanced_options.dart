@@ -4,19 +4,28 @@ import 'package:dartvcr/src/time_frame.dart';
 import 'censors.dart';
 import 'expiration_actions.dart';
 
+/// A collection of configuration options that can be used when recording and replaying requests.
 class AdvancedOptions {
+  /// A collection of censor rules that will be applied to the request and response bodies.
   final Censors censors;
 
+  /// The rules that will be used to match requests to recorded requests.
   final MatchRules matchRules;
 
+  /// The number of milliseconds to delay before returning a response.
   final int manualDelay;
 
+  /// If true, a replayed request will be delayed by the same amount of time it took to make the original live request.
   final bool simulateDelay;
 
+  /// The time frame during which a request can be replayed.
+  /// If the request is replayed outside of this time frame, the [whenExpired] action will be taken.
   final TimeFrame validTimeFrame;
 
+  /// The action to take when a request is replayed outside of the [validTimeFrame].
   final ExpirationAction whenExpired;
 
+  /// Creates a new [AdvancedOptions].
   AdvancedOptions(
       {Censors? censors,
       MatchRules? matchRules,
