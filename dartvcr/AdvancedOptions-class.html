@@ -55,6 +55,9 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A collection of configuration options that can be used when recording and replaying requests.</p>
+</section>
 
 
 
@@ -67,7 +70,7 @@
           <span class="name"><a href="../dartvcr/AdvancedOptions/AdvancedOptions.html">AdvancedOptions</a></span><span class="signature">(<span class="parameter" id="-param-censors">{<span class="type-annotation"><a href="../dartvcr/Censors-class.html">Censors</a>?</span> <span class="parameter-name">censors</span>, </span><span class="parameter" id="-param-matchRules"><span class="type-annotation"><a href="../dartvcr/MatchRules-class.html">MatchRules</a>?</span> <span class="parameter-name">matchRules</span>, </span><span class="parameter" id="-param-manualDelay"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.19.0/dart-core/int-class.html">int</a>?</span> <span class="parameter-name">manualDelay</span>, </span><span class="parameter" id="-param-simulateDelay"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.19.0/dart-core/bool-class.html">bool</a>?</span> <span class="parameter-name">simulateDelay</span>, </span><span class="parameter" id="-param-validTimeFrame"><span class="type-annotation"><a href="../dartvcr/TimeFrame-class.html">TimeFrame</a>?</span> <span class="parameter-name">validTimeFrame</span>, </span><span class="parameter" id="-param-whenExpired"><span class="type-annotation"><a href="../dartvcr/ExpirationAction.html">ExpirationAction</a>?</span> <span class="parameter-name">whenExpired</span>}</span>)</span>
         </dt>
         <dd>
-          
+          Creates a new <a href="../dartvcr/AdvancedOptions-class.html">AdvancedOptions</a>.
         </dd>
     </dl>
   </section>
@@ -82,7 +85,7 @@
 
 </dt>
 <dd>
-  
+  A collection of censor rules that will be applied to the request and response bodies.
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -104,7 +107,7 @@
 
 </dt>
 <dd>
-  
+  The number of milliseconds to delay before returning a response.
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -115,7 +118,7 @@
 
 </dt>
 <dd>
-  
+  The rules that will be used to match requests to recorded requests.
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -137,7 +140,7 @@
 
 </dt>
 <dd>
-  
+  If true, a replayed request will be delayed by the same amount of time it took to make the original live request.
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -148,7 +151,8 @@
 
 </dt>
 <dd>
-  
+  The time frame during which a request can be replayed.
+If the request is replayed outside of this time frame, the <a href="../dartvcr/AdvancedOptions/whenExpired.html">whenExpired</a> action will be taken.
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -159,7 +163,7 @@
 
 </dt>
 <dd>
-  
+  The action to take when a request is replayed outside of the <a href="../dartvcr/AdvancedOptions/validTimeFrame.html">validTimeFrame</a>.
   <div class="features"><span class="feature">final</span></div>
 
 </dd>
@@ -318,7 +322,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.0
+      0.2.1
   </span>
 
   

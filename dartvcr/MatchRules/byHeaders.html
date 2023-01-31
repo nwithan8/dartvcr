@@ -65,6 +65,11 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Enforces that both requests have the same headers.
+If <code>exact</code> is true, then both requests must have the exact same headers.
+If <code>exact</code> is false, then as long as the evaluated request has all the headers of the matching request (and potentially more), the match is considered valid.</p>
+</section>
 
 
     
@@ -155,7 +160,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.0
+      0.2.1
   </span>
 
   

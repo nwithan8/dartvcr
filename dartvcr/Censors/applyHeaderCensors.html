@@ -65,6 +65,9 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Applies the header censors to the given <code>headers</code>.</p>
+</section>
 
 
     
@@ -85,7 +88,6 @@
 
   headers.forEach((key, value) {
     if (value == null) {
-
     } else if (elementShouldBeCensored(key, _headerElementsToCensor)) {
       newHeaders[key] = _censorString;
     } else {
@@ -166,7 +168,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.0
+      0.2.1
   </span>
 
   

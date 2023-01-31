@@ -55,6 +55,9 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A class representing a set of rules to determine if two requests match.</p>
+</section>
 
 
 
@@ -67,7 +70,7 @@
           <span class="name"><a href="../dartvcr/MatchRules/MatchRules.html">MatchRules</a></span><span class="signature">()</span>
         </dt>
         <dd>
-          
+          Creates a new <a href="../dartvcr/MatchRules-class.html">MatchRules</a>.
         </dd>
     </dl>
   </section>
@@ -115,7 +118,7 @@
 
 </dt>
 <dd>
-  
+  Enforces that both requests have the base URL (host).
   
 
 </dd>
@@ -128,7 +131,8 @@
 
 </dt>
 <dd>
-  
+  Enforces that both requests have the same body.
+Ignore specific <code>ignoreElements</code> in the body when comparing.
   
 
 </dd>
@@ -141,7 +145,7 @@
 
 </dt>
 <dd>
-  
+  Enforces that both requests are the exact same (headers, body, etc.).
   
 
 </dd>
@@ -154,7 +158,9 @@
 
 </dt>
 <dd>
-  
+  Enforces that both requests have the same full URL.
+If <code>preserveQueryOrder</code> is true, the order of the query parameters must match as well.
+If <code>preserveQueryOrder</code> is false, the order of the query parameters is ignored.
   
 
 </dd>
@@ -167,7 +173,7 @@
 
 </dt>
 <dd>
-  
+  Enforces that both requests have the same header with the given <code>headerKey</code>.
   
 
 </dd>
@@ -180,7 +186,9 @@
 
 </dt>
 <dd>
-  
+  Enforces that both requests have the same headers.
+If <code>exact</code> is true, then both requests must have the exact same headers.
+If <code>exact</code> is false, then as long as the evaluated request has all the headers of the matching request (and potentially more), the match is considered valid.
   
 
 </dd>
@@ -193,7 +201,7 @@
 
 </dt>
 <dd>
-  
+  Enforces that both requests have the same HTTP method.
   
 
 </dd>
@@ -219,7 +227,7 @@
 
 </dt>
 <dd>
-  
+  Returns true if the given <code>received</code> request matches the given <code>recorded</code> request based on the configured rules.
   
 
 </dd>
@@ -271,7 +279,7 @@
 
 </dt>
 <dd>
-  
+  A pre-configured set of rules that will match requests based on the full URL and method.
   <div class="features"><span class="feature">read-only</span></div>
 
 </dd>
@@ -282,7 +290,7 @@
 
 </dt>
 <dd>
-  
+  A pre-configured set of rules that will match requests based on the full URL, method, and body.
   <div class="features"><span class="feature">read-only</span></div>
 
 </dd>
@@ -389,7 +397,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.0
+      0.2.1
   </span>
 
   

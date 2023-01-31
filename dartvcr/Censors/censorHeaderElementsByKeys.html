@@ -66,6 +66,10 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Add the given <code>keys</code> to the list of elements to censor from request headers.
+If <code>caseSensitive</code> is true, the keys will be censored only when matching case exactly.</p>
+</section>
 
 
     
@@ -73,8 +77,8 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">Censors censorHeaderElementsByKeys(List&lt;String&gt; keys,
     {bool caseSensitive = false}) {
-  _headerElementsToCensor
-      .addAll(keys.map((key) =&gt; CensorElement(key, caseSensitive: caseSensitive)));
+  _headerElementsToCensor.addAll(
+      keys.map((key) =&gt; CensorElement(key, caseSensitive: caseSensitive)));
   return this;
 }</code></pre>
 </section>
@@ -148,7 +152,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.0
+      0.2.1
   </span>
 
   

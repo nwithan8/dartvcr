@@ -66,12 +66,16 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Applies the body parameter censors to the given <code>body</code> with the given <code>contentType</code>.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">String applyBodyParameterCensors(String body, ContentType contentType) {
+  <pre class="language-dart"><code class="language-dart">&#47;&#47; TODO: Only works on JSON bodies
+String applyBodyParameterCensors(String body, ContentType contentType) {
   if (body.isEmpty) {
     &#47;&#47; short circuit if body is empty
     return body;
@@ -170,7 +174,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.0
+      0.2.1
   </span>
 
   

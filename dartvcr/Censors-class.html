@@ -55,6 +55,9 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A class representing a set of rules to censor elements from requests and responses.</p>
+</section>
 
 
 
@@ -67,7 +70,7 @@
           <span class="name"><a href="../dartvcr/Censors/Censors.html">Censors</a></span><span class="signature">(<span class="parameter" id="-param-censorString">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.19.0/dart-core/String-class.html">String</a></span> <span class="parameter-name">censorString</span> = <span class="default-value">&quot;******&quot;</span>}</span>)</span>
         </dt>
         <dd>
-          
+          Creates a new <a href="../dartvcr/Censors-class.html">Censors</a> with the given <code>censorString</code>.
         </dd>
     </dl>
   </section>
@@ -115,7 +118,7 @@
 
 </dt>
 <dd>
-  
+  Applies the body parameter censors to the given <code>body</code> with the given <code>contentType</code>.
   
 
 </dd>
@@ -128,7 +131,7 @@
 
 </dt>
 <dd>
-  
+  Applies the header censors to the given <code>headers</code>.
   
 
 </dd>
@@ -141,7 +144,7 @@
 
 </dt>
 <dd>
-  
+  Applies the query parameter censors to the given <code>url</code>.
   
 
 </dd>
@@ -154,7 +157,7 @@
 
 </dt>
 <dd>
-  
+  Add the given <code>element</code> to the list of elements to censor from request bodies.
   
 
 </dd>
@@ -167,7 +170,8 @@
 
 </dt>
 <dd>
-  
+  Add the given <code>keys</code> to the list of elements to censor from request bodies.
+If <code>caseSensitive</code> is true, the keys will be censored only when matching case exactly.
   
 
 </dd>
@@ -180,7 +184,7 @@
 
 </dt>
 <dd>
-  
+  Add the given <code>element</code> to the list of elements to censor from request headers.
   
 
 </dd>
@@ -193,7 +197,8 @@
 
 </dt>
 <dd>
-  
+  Add the given <code>keys</code> to the list of elements to censor from request headers.
+If <code>caseSensitive</code> is true, the keys will be censored only when matching case exactly.
   
 
 </dd>
@@ -206,7 +211,7 @@
 
 </dt>
 <dd>
-  
+  Add the given <code>element</code> to the list of elements to censor from request query parameters.
   
 
 </dd>
@@ -219,7 +224,8 @@
 
 </dt>
 <dd>
-  
+  Add the given <code>keys</code> to the list of elements to censor from request query parameters.
+If <code>caseSensitive</code> is true, the keys will be censored only when matching case exactly.
   
 
 </dd>
@@ -284,7 +290,7 @@
 
 </dt>
 <dd>
-  
+  A pre-configured instance of <a href="../dartvcr/Censors-class.html">Censors</a> that censors nothing.
   <div class="features"><span class="feature">read-only</span></div>
 
 </dd>
@@ -303,7 +309,7 @@
 
 </dt>
 <dd>
-  
+  Censors the given <code>elementsToCensor</code> in the given <code>body</code> with the given <code>censorString</code>.
   
 
 </dd>
@@ -316,7 +322,7 @@
 
 </dt>
 <dd>
-  
+  Censors the given <code>elementsToCensor</code> in the given <code>list</code> with the given <code>censorString</code>.
   
 
 </dd>
@@ -329,7 +335,7 @@
 
 </dt>
 <dd>
-  
+  Censors the given <code>elementsToCensor</code> in the given <code>map</code> with the given <code>censorString</code>.
   
 
 </dd>
@@ -342,7 +348,7 @@
 
 </dt>
 <dd>
-  
+  Returns true if the given <code>foundKey</code> exists in the given <code>elementsToCensor</code> list.
   
 
 </dd>
@@ -453,7 +459,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.0
+      0.2.1
   </span>
 
   

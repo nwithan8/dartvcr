@@ -67,13 +67,16 @@
 
     </section>
     
+<section class="desc markdown">
+  <p>Censors the given <code>elementsToCensor</code> in the given <code>map</code> with the given <code>censorString</code>.</p>
+</section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">static Map&lt;String, dynamic&gt; censorMap(Map&lt;String, dynamic&gt; map, String censorString,
-    List&lt;CensorElement&gt; elementsToCensor) {
+  <pre class="language-dart"><code class="language-dart">static Map&lt;String, dynamic&gt; censorMap(Map&lt;String, dynamic&gt; map,
+    String censorString, List&lt;CensorElement&gt; elementsToCensor) {
   if (elementsToCensor.isEmpty) {
     &#47;&#47; short circuit if there are no censors to apply
     return map;
@@ -186,7 +189,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.0
+      0.2.1
   </span>
 
   

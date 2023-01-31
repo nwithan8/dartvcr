@@ -55,6 +55,9 @@
 </h1></div>
 
     
+<section class="desc markdown">
+  <p>A <a href="https://pub.dev/documentation/http/0.13.5/http/BaseClient-class.html">http.BaseClient</a> that records and replays HTTP interactions.</p>
+</section>
 
 
     <section>
@@ -89,7 +92,7 @@
           <span class="name"><a href="../dartvcr/DartVCRClient/DartVCRClient.html">DartVCRClient</a></span><span class="signature">(<span class="parameter" id="-param-_cassette"><span class="type-annotation"><a href="../dartvcr/Cassette-class.html">Cassette</a></span> <span class="parameter-name">_cassette</span>, </span><span class="parameter" id="-param-_mode"><span class="type-annotation"><a href="../dartvcr/Mode.html">Mode</a></span> <span class="parameter-name">_mode</span>, </span><span class="parameter" id="-param-advancedOptions">{<span class="type-annotation"><a href="../dartvcr/AdvancedOptions-class.html">AdvancedOptions</a>?</span> <span class="parameter-name">advancedOptions</span>}</span>)</span>
         </dt>
         <dd>
-          
+          Creates a new <a href="../dartvcr/DartVCRClient-class.html">DartVCRClient</a> with the given <a href="../dartvcr/Cassette-class.html">Cassette</a>, <a href="../dartvcr/Mode.html">Mode</a> and <a href="../dartvcr/AdvancedOptions-class.html">AdvancedOptions</a>.
         </dd>
     </dl>
   </section>
@@ -273,7 +276,11 @@ bytes.
 
 </dt>
 <dd>
-  Sends an HTTP request and asynchronously returns the response.
+  Simulates an HTTP request and response.
+Makes a real request and records the response if the <a href="../dartvcr/Mode.html">Mode</a> is <a href="../dartvcr/Mode.html">Mode.record</a>.
+Drops the request and returns a recorded response if the <a href="../dartvcr/Mode.html">Mode</a> is <a href="../dartvcr/Mode.html">Mode.replay</a>.
+Makes a real request and returns the real response if the <a href="../dartvcr/Mode.html">Mode</a> is <a href="../dartvcr/Mode.html">Mode.bypass</a>.
+Either makes a real request and records the response, or drops the request and returns a recorded response if the <a href="../dartvcr/Mode.html">Mode</a> is <a href="../dartvcr/Mode.html">Mode.auto</a>.
   <div class="features"><span class="feature">override</span></div>
 
 </dd>
@@ -414,7 +421,7 @@ bytes.
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.0
+      0.2.1
   </span>
 
   
