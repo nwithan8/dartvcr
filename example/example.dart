@@ -12,7 +12,7 @@ Future<void> useClientDirectly() async {
 
   // Use this DartVCRClient in any class making HTTP calls
   // Note: DartVCRClient extends BaseClient from the 'http/http' package, so it can be used anywhere a BaseClient is expected
-  var response = await client.post(Uri.parse('https://api.example.com/v1/users'));
+  await client.post(Uri.parse('https://api.example.com/v1/users'));
 }
 
 Future<void> useClientViaVCR() async {
@@ -33,6 +33,7 @@ Future<void> useClientViaVCR() async {
   var client = vcr.client;
 
   // make a request
+  await client.post(Uri.parse('https://api.example.com/v1/users'));
 
   // remove the cassette from the VCR
   vcr.eject();

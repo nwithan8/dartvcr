@@ -455,7 +455,7 @@ void main() {
 
       // make sure the VCR client is set correctly
       // no exception thrown when retrieving the client
-      DartVCRClient client = vcr.client;
+      expect(vcr.client, isNotNull);
     });
 
     test("VCR client handoff", () async {
@@ -466,7 +466,7 @@ void main() {
       // test that we can still control the VCR even after it's been handed off to the service using it
       FakeDataService service = FakeDataService("json", vcr: vcr);
       // Client should come from VCR, which has a client because it has a cassette.
-      DartVCRClient client = service.client;
+      expect(service.client, isNotNull);
 
       vcr.eject();
       // Client should be null because the VCR's cassette has been ejected.
