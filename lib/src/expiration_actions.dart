@@ -6,8 +6,10 @@ import 'mode.dart';
 enum ExpirationAction {
   /// warn: The VCR will log a warning to the console.
   warn,
+
   /// throwException: The VCR will throw an exception.
   throwException,
+
   /// recordAgain: The VCR will silently re-record the interaction.
   recordAgain,
 }

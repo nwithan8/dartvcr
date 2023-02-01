@@ -26,7 +26,8 @@ class Response extends HttpElement {
   @override
   Map<String, dynamic> toJson() => _$ResponseToJson(this);
 
-  static Future<http.StreamedResponse> toStream(http.Response response, Censors censors) async {
+  static Future<http.StreamedResponse> toStream(
+      http.Response response, Censors censors) async {
     Map<String, String> headers = response.headers;
     headers = censors.applyHeaderCensors(headers);
 
@@ -41,7 +42,8 @@ class Response extends HttpElement {
     );
   }
 
-  static Future<http.Response> fromStream(http.StreamedResponse response, Censors censors) async {
+  static Future<http.Response> fromStream(
+      http.StreamedResponse response, Censors censors) async {
     final body = await response.stream.toBytes();
     return http.Response.bytes(body, response.statusCode,
         request: response.request,

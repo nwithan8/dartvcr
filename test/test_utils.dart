@@ -18,9 +18,9 @@ class TestUtils {
   }
 
   static VCR getSimpleVCR(Mode mode) {
-    VCR vcr = VCR(advancedOptions: AdvancedOptions(
-      matchRules: MatchRules.defaultStrictMatchRules
-    ));
+    VCR vcr = VCR(
+        advancedOptions:
+            AdvancedOptions(matchRules: MatchRules.defaultStrictMatchRules));
 
     switch (mode) {
       case Mode.record:

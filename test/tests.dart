@@ -564,7 +564,8 @@ void main() {
 
       // replay the request from the cassette
       vcr.replay();
-      http.StreamedResponse response = await service.getIPAddressDataRawResponse();
+      http.StreamedResponse response =
+          await service.getIPAddressDataRawResponse();
       assert(response.statusCode == 200);
 
       // double check by erasing the cassette and trying to replay
@@ -580,7 +581,8 @@ void main() {
       vcr.insert(cassette);
       FakeDataService service = FakeDataService("json", vcr: vcr);
 
-      http.StreamedResponse response = await service.getIPAddressDataRawResponse();
+      http.StreamedResponse response =
+          await service.getIPAddressDataRawResponse();
       assert(response.statusCode == 200);
     });
   });

@@ -17,8 +17,7 @@ class VCR {
   AdvancedOptions? advancedOptions;
 
   /// Creates a new [VCR] with the given [AdvancedOptions]. The [mode] defaults to [Mode.bypass].
-  VCR({this.advancedOptions})
-      : mode = Mode.bypass;
+  VCR({this.advancedOptions}) : mode = Mode.bypass;
 
   /// Get the name of the current [Cassette], or null if there is no cassette.
   String? get cassetteName => _currentCassette?.name;
