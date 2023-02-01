@@ -132,7 +132,6 @@
 </dt>
 <dd>
   Enforces that both requests have the same body.
-Ignore specific <code>ignoreElements</code> in the body when comparing.
   
 
 </dd>
@@ -159,8 +158,6 @@ Ignore specific <code>ignoreElements</code> in the body when comparing.
 </dt>
 <dd>
   Enforces that both requests have the same full URL.
-If <code>preserveQueryOrder</code> is true, the order of the query parameters must match as well.
-If <code>preserveQueryOrder</code> is false, the order of the query parameters is ignored.
   
 
 </dd>
@@ -179,7 +176,7 @@ If <code>preserveQueryOrder</code> is false, the order of the query parameters i
 </dd>
 
         <dt id="byHeaders" class="callable">
-  <span class="name"><a href="../dartvcr/MatchRules/byHeaders.html">byHeaders</a></span><span class="signature">(<wbr><span class="parameter" id="byHeaders-param-exact"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.19.0/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">exact</span></span>)
+  <span class="name"><a href="../dartvcr/MatchRules/byHeaders.html">byHeaders</a></span><span class="signature">(<wbr><span class="parameter" id="byHeaders-param-exact">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.19.0/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">exact</span> = <span class="default-value">false</span>}</span>)
     <span class="returntype parameter">&#8594; <a href="../dartvcr/MatchRules-class.html">MatchRules</a></span>
   </span>
   
@@ -187,8 +184,6 @@ If <code>preserveQueryOrder</code> is false, the order of the query parameters i
 </dt>
 <dd>
   Enforces that both requests have the same headers.
-If <code>exact</code> is true, then both requests must have the exact same headers.
-If <code>exact</code> is false, then as long as the evaluated request has all the headers of the matching request (and potentially more), the match is considered valid.
   
 
 </dd>
@@ -397,7 +392,7 @@ If <code>exact</code> is false, then as long as the evaluated request has all th
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.1
+      0.2.2
   </span>
 
   

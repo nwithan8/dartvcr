@@ -68,6 +68,15 @@
     
 <section class="desc markdown">
   <p>Creates a new <a href="../../dartvcr/AdvancedOptions-class.html">AdvancedOptions</a>.</p>
+<pre class="language-dart"><code class="language-dart">final options = AdvancedOptions(
+ censors: Censors.defaultCensors,
+ matchRules: MatchRules.defaultMatchRules,
+ manualDelay: 0,
+ simulateDelay: false,
+ validTimeFrame: TimeFrame.forever,
+ whenExpired: ExpirationAction.warn,
+);
+</code></pre>
 </section>
 
 
@@ -148,7 +157,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.1
+      0.2.2
   </span>
 
   

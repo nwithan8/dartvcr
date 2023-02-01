@@ -58,7 +58,7 @@
       
 
 <span class="returntype"><a href="../../dartvcr/MatchRules-class.html">MatchRules</a></span>
-<span class="name ">byHeaders</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="byHeaders-param-exact"><span class="type-annotation"><a href="https://api.dart.dev/stable/2.19.0/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">exact</span></span></li>
+<span class="name ">byHeaders</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="byHeaders-param-exact">{<span class="type-annotation"><a href="https://api.dart.dev/stable/2.19.0/dart-core/bool-class.html">bool</a></span> <span class="parameter-name">exact</span> = <span class="default-value">false</span>}</span></li>
 </ol>)
 
       
@@ -66,16 +66,18 @@
     </section>
     
 <section class="desc markdown">
-  <p>Enforces that both requests have the same headers.
-If <code>exact</code> is true, then both requests must have the exact same headers.
+  <p>Enforces that both requests have the same headers.</p>
+<p>If <code>exact</code> is true, then both requests must have the exact same headers.
 If <code>exact</code> is false, then as long as the evaluated request has all the headers of the matching request (and potentially more), the match is considered valid.</p>
+<pre class="language-dart"><code class="language-dart">MatchRules rules = MatchRules().byHeaders();
+</code></pre>
 </section>
 
 
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">MatchRules byHeaders(bool exact) {
+  <pre class="language-dart"><code class="language-dart">MatchRules byHeaders({bool exact = false}) {
   if (exact) {
     &#47;&#47; first, we&#39;ll check that there are the same number of headers in both requests. If they&#39;re are, then the second check is guaranteed to compare all headers.
     _by((Request received, Request recorded) {
@@ -160,7 +162,7 @@ If <code>exact</code> is false, then as long as the evaluated request has all th
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.1
+      0.2.2
   </span>
 
   

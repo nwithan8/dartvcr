@@ -65,6 +65,19 @@
     
 <section class="desc markdown">
   <p>Creates a new <a href="../../dartvcr/DartVCRClient-class.html">DartVCRClient</a> with the given <a href="../../dartvcr/Cassette-class.html">Cassette</a>, <a href="../../dartvcr/Mode.html">Mode</a> and <a href="../../dartvcr/AdvancedOptions-class.html">AdvancedOptions</a>.</p>
+<pre class="language-dart"><code class="language-dart">final client = DartVCRClient(
+ cassette: Cassette(),
+ mode: Mode.auto,
+ advancedOptions: AdvancedOptions(
+  censors: Censors.defaultCensors,
+  matchRules: MatchRules.defaultMatchRules,
+  manualDelay: 0,
+  simulateDelay: false,
+  validTimeFrame: TimeFrame.forever,
+  whenExpired: ExpirationAction.warn,
+ ),
+);
+</code></pre>
 </section>
 
 
@@ -139,7 +152,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.1
+      0.2.2
   </span>
 
   
