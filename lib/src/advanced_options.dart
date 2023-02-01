@@ -19,6 +19,7 @@ class AdvancedOptions {
   final bool simulateDelay;
 
   /// The time frame during which a request can be replayed.
+  ///
   /// If the request is replayed outside of this time frame, the [whenExpired] action will be taken.
   final TimeFrame validTimeFrame;
 
@@ -26,6 +27,16 @@ class AdvancedOptions {
   final ExpirationAction whenExpired;
 
   /// Creates a new [AdvancedOptions].
+  ///
+  /// ```dart
+  /// final options = AdvancedOptions(
+  ///  censors: Censors.defaultCensors,
+  ///  matchRules: MatchRules.defaultMatchRules,
+  ///  manualDelay: 0,
+  ///  simulateDelay: false,
+  ///  validTimeFrame: TimeFrame.forever,
+  ///  whenExpired: ExpirationAction.warn,
+  /// );
   AdvancedOptions(
       {Censors? censors,
       MatchRules? matchRules,

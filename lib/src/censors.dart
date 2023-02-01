@@ -21,6 +21,10 @@ class Censors {
   final List<CensorElement> _queryElementsToCensor;
 
   /// Creates a new [Censors] with the given [censorString].
+  ///
+  /// ```dart
+  /// Censors censors = Censors(censorString: "censored");
+  /// ```
   Censors({String censorString = "******"})
       : _censorString = censorString,
         _bodyElementsToCensor = [],
@@ -34,6 +38,7 @@ class Censors {
   }
 
   /// Add the given [keys] to the list of elements to censor from request bodies.
+  ///
   /// If [caseSensitive] is true, the keys will be censored only when matching case exactly.
   Censors censorBodyElementsByKeys(List<String> keys,
       {bool caseSensitive = false}) {
@@ -49,6 +54,7 @@ class Censors {
   }
 
   /// Add the given [keys] to the list of elements to censor from request headers.
+  ///
   /// If [caseSensitive] is true, the keys will be censored only when matching case exactly.
   Censors censorHeaderElementsByKeys(List<String> keys,
       {bool caseSensitive = false}) {
@@ -64,6 +70,7 @@ class Censors {
   }
 
   /// Add the given [keys] to the list of elements to censor from request query parameters.
+  ///
   /// If [caseSensitive] is true, the keys will be censored only when matching case exactly.
   Censors censorQueryElementsByKeys(List<String> keys,
       {bool caseSensitive = false}) {
@@ -73,6 +80,8 @@ class Censors {
   }
 
   /// Applies the body parameter censors to the given [body] with the given [contentType].
+  ///
+  /// Currently only supports JSON bodies.
   // TODO: Only works on JSON bodies
   String applyBodyParameterCensors(String body, ContentType contentType) {
     if (body.isEmpty) {

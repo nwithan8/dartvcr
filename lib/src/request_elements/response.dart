@@ -7,25 +7,33 @@ import 'http_element.dart';
 
 part 'response.g.dart';
 
+/// A class that represents an HTTP response.
 @JsonSerializable(explicitToJson: true)
 class Response extends HttpElement {
+  /// The body of the response.
   @JsonKey(name: 'body')
   final String? body;
 
+  /// The headers of the response.
   @JsonKey(name: 'headers')
   final Map<String, String> headers;
 
+  /// The HTTP status of the response.
   @JsonKey(name: 'status')
   final Status status;
 
+  /// Creates a new [Response] with the given [body], [headers], and [status].
   Response(this.body, this.headers, this.status) : super();
 
+  /// Creates a new [Response] from a JSON map.
   factory Response.fromJson(Map<String, dynamic> input) =>
       _$ResponseFromJson(input);
 
+  /// Converts this [Response] to a JSON map.
   @override
   Map<String, dynamic> toJson() => _$ResponseToJson(this);
 
+  /// Creates a new [http.StreamedResponse] from a [http.Response] and [Censors] rules.
   static Future<http.StreamedResponse> toStream(
       http.Response response, Censors censors) async {
     Map<String, String> headers = response.headers;
@@ -42,6 +50,7 @@ class Response extends HttpElement {
     );
   }
 
+  /// Creates a new [http.Response] from a [http.StreamedResponse] and [Censors] rules.
   static Future<http.Response> fromStream(
       http.StreamedResponse response, Censors censors) async {
     final body = await response.stream.toBytes();

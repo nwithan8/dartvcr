@@ -15,6 +15,10 @@ class Cassette {
   bool _locked = false;
 
   /// Creates a new [Cassette] with the given [name] and [folderPath].
+  ///
+  /// ```dart
+  /// Cassette cassette = Cassette('my_cassette', 'cassettes');
+  /// ```
   Cassette(folderPath, this.name) : _filePath = '$folderPath/$name.json';
 
   /// Returns the number of interactions in the cassette.

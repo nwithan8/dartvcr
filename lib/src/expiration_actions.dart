@@ -14,6 +14,7 @@ enum ExpirationAction {
   recordAgain,
 }
 
+/// An extension on [ExpirationAction] that provides additional functionality.
 extension ExpirationActionExtension on ExpirationAction {
   void checkCompatibleSettings(ExpirationAction action, Mode mode) {
     if (action == ExpirationAction.recordAgain && mode == Mode.replay) {

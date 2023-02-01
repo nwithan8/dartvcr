@@ -11,6 +11,10 @@ class MatchRules {
   final List<MatchRule> _rules;
 
   /// Creates a new [MatchRules].
+  ///
+  /// ```dart
+  /// MatchRules rules = MatchRules();
+  /// ```
   MatchRules() : _rules = [];
 
   /// A pre-configured set of rules that will match requests based on the full URL and method.
@@ -38,6 +42,10 @@ class MatchRules {
   }
 
   /// Enforces that both requests have the base URL (host).
+  ///
+  /// ```dart
+  /// MatchRules rules = MatchRules().byBaseUrl();
+  /// ```
   MatchRules byBaseUrl() {
     _by((Request received, Request recorded) {
       return received.uri.host == recorded.uri.host;
@@ -46,8 +54,13 @@ class MatchRules {
   }
 
   /// Enforces that both requests have the same full URL.
+  ///
   /// If [preserveQueryOrder] is true, the order of the query parameters must match as well.
   /// If [preserveQueryOrder] is false, the order of the query parameters is ignored.
+  ///
+  /// ```dart
+  /// MatchRules rules = MatchRules().byFullUrl();
+  /// ```
   MatchRules byFullUrl({bool preserveQueryOrder = false}) {
     _by((Request received, Request recorded) {
       if (preserveQueryOrder) {
@@ -76,6 +89,9 @@ class MatchRules {
   }
 
   /// Enforces that both requests have the same HTTP method.
+  ///
+  /// ```dart
+  /// MatchRules rules = MatchRules().byMethod();
   MatchRules byMethod() {
     _by((Request received, Request recorded) {
       return received.method == recorded.method;
@@ -84,7 +100,11 @@ class MatchRules {
   }
 
   /// Enforces that both requests have the same body.
+  ///
   /// Ignore specific [ignoreElements] in the body when comparing.
+  ///
+  /// ```dart
+  /// MatchRules rules = MatchRules().byBody();
   MatchRules byBody({List<CensorElement> ignoreElements = const []}) {
     _by((Request received, Request recorded) {
       if (received.body == null && recorded.body == null) {
@@ -109,6 +129,10 @@ class MatchRules {
   }
 
   /// Enforces that both requests are the exact same (headers, body, etc.).
+  ///
+  /// ```dart
+  /// MatchRules rules = MatchRules().byEverything();
+  /// ```
   MatchRules byEverything() {
     _by((Request received, Request recorded) {
       String receivedRequest = jsonEncode(received);
@@ -119,6 +143,10 @@ class MatchRules {
   }
 
   /// Enforces that both requests have the same header with the given [headerKey].
+  ///
+  /// ```dart
+  /// MatchRules rules = MatchRules().byHeader("Content-Type");
+  /// ```
   MatchRules byHeader(String headerKey) {
     _by((Request received, Request recorded) {
       if (received.headers.containsKey(headerKey) &&
@@ -132,9 +160,14 @@ class MatchRules {
   }
 
   /// Enforces that both requests have the same headers.
+  ///
   /// If [exact] is true, then both requests must have the exact same headers.
   /// If [exact] is false, then as long as the evaluated request has all the headers of the matching request (and potentially more), the match is considered valid.
-  MatchRules byHeaders(bool exact) {
+  ///
+  /// ```dart
+  /// MatchRules rules = MatchRules().byHeaders();
+  /// ```
+  MatchRules byHeaders({bool exact = false}) {
     if (exact) {
       // first, we'll check that there are the same number of headers in both requests. If they're are, then the second check is guaranteed to compare all headers.
       _by((Request received, Request recorded) {
@@ -160,4 +193,5 @@ class MatchRules {
   }
 }
 
+/// A function that determines if two requests match.
 typedef MatchRule = bool Function(Request received, Request recorded);

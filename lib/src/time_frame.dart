@@ -1,3 +1,4 @@
+/// The various common [TimeFrame]s available.
 enum CommonTimeFrame { never, forever }
 
 /// A class representing a time frame.
@@ -18,6 +19,11 @@ class TimeFrame {
   final CommonTimeFrame? _commonTimeFrame;
 
   /// Creates a new [TimeFrame] with the given [days], [hours], [minutes] and [seconds], or [commonTimeFrame].
+  ///
+  /// ```dart
+  /// TimeFrame frame1 = TimeFrame(days: 1, hours: 2, minutes: 3, seconds: 4);
+  /// TimeFrame frame2 = TimeFrame(commonTimeFrame: CommonTimeFrame.forever);
+  /// ```
   TimeFrame({
     this.days = 0,
     this.hours = 0,

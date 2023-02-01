@@ -1,3 +1,4 @@
+/// DartVCR is a library that allows you to record and replay HTTP interactions
 library dartvcr;
 
 export 'src/advanced_options.dart';

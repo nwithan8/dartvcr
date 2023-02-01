@@ -25,11 +25,26 @@ class DartVCRClient extends http.BaseClient {
   final AdvancedOptions _advancedOptions;
 
   /// Creates a new [DartVCRClient] with the given [Cassette], [Mode] and [AdvancedOptions].
+  ///
+  /// ```dart
+  /// final client = DartVCRClient(
+  ///  cassette: Cassette(),
+  ///  mode: Mode.auto,
+  ///  advancedOptions: AdvancedOptions(
+  ///   censors: Censors.defaultCensors,
+  ///   matchRules: MatchRules.defaultMatchRules,
+  ///   manualDelay: 0,
+  ///   simulateDelay: false,
+  ///   validTimeFrame: TimeFrame.forever,
+  ///   whenExpired: ExpirationAction.warn,
+  ///  ),
+  /// );
   DartVCRClient(this._cassette, this._mode, {AdvancedOptions? advancedOptions})
       : _client = http.Client(),
         _advancedOptions = advancedOptions ?? AdvancedOptions();
 
   /// Simulates an HTTP request and response.
+  ///
   /// Makes a real request and records the response if the [Mode] is [Mode.record].
   /// Drops the request and returns a recorded response if the [Mode] is [Mode.replay].
   /// Makes a real request and returns the real response if the [Mode] is [Mode.bypass].
