@@ -1,3 +1,7 @@
+## 0.2.2 (2023-01-31)
+- [ADDED] Docstring improvements
+- [CHANGED] Formatting improvements
+
 ## 0.2.1 (2023-01-30)
 - [ADDED] Docstring improvements
 
