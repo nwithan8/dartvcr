@@ -4,6 +4,7 @@ import 'package:dartvcr/src/utilities.dart';
 import 'package:dartvcr/src/vcr_exception.dart';
 
 import 'censor_element.dart';
+import 'defaults.dart';
 import 'internal_utilities/content_type.dart';
 
 /// A class representing a set of rules to censor elements from requests and responses.
@@ -281,5 +282,12 @@ class Censors {
   /// A pre-configured instance of [Censors] that censors nothing.
   static Censors get defaultCensors {
     return Censors();
+  }
+
+  /// A pre-configured instance of [Censors] that censors common credential data.
+  static Censors get defaultCredentialCensors {
+    return Censors()
+        .censorQueryElementsByKeys(credentialParametersToHide)
+        .censorHeaderElementsByKeys(credentialHeadersToHide);
   }
 }
