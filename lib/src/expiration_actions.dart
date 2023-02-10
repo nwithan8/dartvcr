@@ -16,6 +16,7 @@ enum ExpirationAction {
 
 /// An extension on [ExpirationAction] that provides additional functionality.
 extension ExpirationActionExtension on ExpirationAction {
+  /// Check if the given [action] and [mode] are compatible.
   void checkCompatibleSettings(ExpirationAction action, Mode mode) {
     if (action == ExpirationAction.recordAgain && mode == Mode.replay) {
       throw VCRException(

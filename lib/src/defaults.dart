@@ -1,3 +1,4 @@
+/// The header added to all requests recorded by the VCR, for detecting if a response came from a recording or not.
 const String viaRecordingHeaderKey = "X-Via-DartVCR-Recording";
 
 /// A set of default headers that will be added to all requests replayed by the VCR.
