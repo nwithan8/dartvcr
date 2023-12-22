@@ -1,0 +1,35 @@
+name: Run unit tests on PR
+
+on:
+  pull_request: ~
+  workflow_dispatch: ~
+
+jobs:
+
+  # Run unit tests
+  tests:
+    name: 'Run unit tests'
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout repository
+      - uses: actions/checkout@v3
+
+      # Setup Dart SDK
+      - uses: dart-lang/setup-dart@main
+
+      # Set temporary version number
+      - name: Set temporary version number
+        uses: jacobtomlinson/gha-find-replace@2.0.0
+        with:
+          find: "VERSIONADDEDBYGITHUB"
+          replace: "1.0.0"
+          regex: false
+
+      # Minimal package setup
+      - name: Install dependencies
+        run: dart pub get
+        working-directory: ${{ inputs.working-directory }}
+
+      # Run unit tests
+      - name: Run unit tests
+        run: make unit_tests
