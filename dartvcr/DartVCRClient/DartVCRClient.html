@@ -40,18 +40,24 @@
   <div class="toggle" id="theme-button">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
-      <span class="material-symbols-outlined">
+      <span id="dark-theme-button" class="material-symbols-outlined">
         brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
       </span>
     </label>
   </div>
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="dartvcr&#47;DartVCRClient-class-sidebar.html"
+      data-below-sidebar="">
       <div>
 <h1><span class="kind-constructor">DartVCRClient</span> constructor 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
     <section class="multi-line-signature">
@@ -84,64 +90,30 @@
     
 <section class="summary source-code" id="source">
   <h2><span>Implementation</span></h2>
-  <pre class="language-dart"><code class="language-dart">DartVCRClient(this._cassette, this._mode, {AdvancedOptions? advancedOptions})
-    : _client = http.Client(),
-      _advancedOptions = advancedOptions ?? AdvancedOptions();</code></pre>
+  <pre class="language-dart"><code class="language-dart">DartVCRClient</code></pre>
 </section>
 
 
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../../index.html">dartvcr</a></li>
-  <li><a href="../../dartvcr/dartvcr-library.html">dartvcr</a></li>
-  <li><a href="../../dartvcr/DartVCRClient-class.html">DartVCRClient</a></li>
-  <li class="self-crumb">DartVCRClient constructor</li>
+    <li><a href="../../index.html">dartvcr</a></li>
+    <li><a href="../../dartvcr/dartvcr-library.html">dartvcr</a></li>
+    <li><a href="../../dartvcr/DartVCRClient-class.html">DartVCRClient</a></li>
+    <li class="self-crumb">DartVCRClient constructor</li>
 </ol>
 
 
     <h5>DartVCRClient class</h5>
-    <ol>
-
-        <li class="section-title"><a href="../../dartvcr/DartVCRClient-class.html#constructors">Constructors</a></li>
-          <li><a href="../../dartvcr/DartVCRClient/DartVCRClient.html">DartVCRClient</a></li>
-
-
-        <li class="section-title inherited">
-          <a href="../../dartvcr/DartVCRClient-class.html#instance-properties">Properties</a>
-        </li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.2/dart-core/Object/hashCode.html">hashCode</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.2/dart-core/Object/runtimeType.html">runtimeType</a></li>
-
-        <li class="section-title"><a href="../../dartvcr/DartVCRClient-class.html#instance-methods">Methods</a></li>
-          <li class="inherited"><a href="https://pub.dev/documentation/http/0.13.5/http/BaseClient/close.html">close</a></li>
-          <li class="inherited"><a href="https://pub.dev/documentation/http/0.13.5/http/BaseClient/delete.html">delete</a></li>
-          <li class="inherited"><a href="https://pub.dev/documentation/http/0.13.5/http/BaseClient/get.html">get</a></li>
-          <li class="inherited"><a href="https://pub.dev/documentation/http/0.13.5/http/BaseClient/head.html">head</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.2/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-          <li class="inherited"><a href="https://pub.dev/documentation/http/0.13.5/http/BaseClient/patch.html">patch</a></li>
-          <li class="inherited"><a href="https://pub.dev/documentation/http/0.13.5/http/BaseClient/post.html">post</a></li>
-          <li class="inherited"><a href="https://pub.dev/documentation/http/0.13.5/http/BaseClient/put.html">put</a></li>
-          <li class="inherited"><a href="https://pub.dev/documentation/http/0.13.5/http/BaseClient/read.html">read</a></li>
-          <li class="inherited"><a href="https://pub.dev/documentation/http/0.13.5/http/BaseClient/readBytes.html">readBytes</a></li>
-          <li><a href="../../dartvcr/DartVCRClient/send.html">send</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.2/dart-core/Object/toString.html">toString</a></li>
-
-        <li class="section-title inherited"><a href="../../dartvcr/DartVCRClient-class.html#operators">Operators</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.2/dart-core/Object/operator_equals.html">operator ==</a></li>
-
-
-
-
-</ol>
-
+    <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-left-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -152,7 +124,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.3
+      0.3.0
   </span>
 
   

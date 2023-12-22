@@ -39,26 +39,32 @@
   <div class="toggle" id="theme-button">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
-      <span class="material-symbols-outlined">
+      <span id="dark-theme-button" class="material-symbols-outlined">
         brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
       </span>
     </label>
   </div>
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="dartvcr&#47;dartvcr-library-sidebar.html"
+      data-below-sidebar="">
       <div>
 <h1><span class="kind-function">responseCameFromRecording</span> function 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
  
 </h1></div>
 
     <section class="multi-line-signature">
         
 
-<span class="returntype"><a href="https://api.dart.dev/stable/2.19.2/dart-core/bool-class.html">bool</a></span>
-<span class="name ">responseCameFromRecording</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="responseCameFromRecording-param-response"><span class="type-annotation"><a href="https://pub.dev/documentation/http/0.13.5/http/Response-class.html">Response</a></span> <span class="parameter-name">response</span></span></li>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.2.4/dart-core/bool-class.html">bool</a></span>
+<span class="name ">responseCameFromRecording</span>(<wbr><ol class="parameter-list"><li><span class="parameter" id="responseCameFromRecording-param-response"><span class="type-annotation"><a href="https://pub.dev/documentation/http/1.1.2/http/Response-class.html">Response</a></span> <span class="parameter-name">response</span></span></li>
 </ol>)
 
         
@@ -82,54 +88,22 @@
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../index.html">dartvcr</a></li>
-  <li><a href="../dartvcr/dartvcr-library.html">dartvcr</a></li>
-  <li class="self-crumb">responseCameFromRecording function</li>
+    <li><a href="../index.html">dartvcr</a></li>
+    <li><a href="../dartvcr/dartvcr-library.html">dartvcr</a></li>
+    <li class="self-crumb">responseCameFromRecording function</li>
 </ol>
 
 
     <h5>dartvcr library</h5>
-    <ol>
-      <li class="section-title"><a href="../dartvcr/dartvcr-library.html#classes">Classes</a></li>
-        <li><a href="../dartvcr/AdvancedOptions-class.html">AdvancedOptions</a></li>
-        <li><a href="../dartvcr/Cassette-class.html">Cassette</a></li>
-        <li><a href="../dartvcr/CensorElement-class.html">CensorElement</a></li>
-        <li><a href="../dartvcr/Censors-class.html">Censors</a></li>
-        <li><a href="../dartvcr/DartVCRClient-class.html">DartVCRClient</a></li>
-        <li><a href="../dartvcr/MatchRules-class.html">MatchRules</a></li>
-        <li><a href="../dartvcr/TimeFrame-class.html">TimeFrame</a></li>
-        <li><a href="../dartvcr/VCR-class.html">VCR</a></li>
-
-      <li class="section-title"><a href="../dartvcr/dartvcr-library.html#extensions">Extensions</a></li>
-        <li><a href="../dartvcr/ExpirationActionExtension.html">ExpirationActionExtension</a></li>
-
-
-
-
-      <li class="section-title"><a href="../dartvcr/dartvcr-library.html#functions">Functions</a></li>
-        <li><a href="../dartvcr/isJsonList.html">isJsonList</a></li>
-        <li><a href="../dartvcr/isJsonMap.html">isJsonMap</a></li>
-        <li><a href="../dartvcr/responseCameFromRecording.html">responseCameFromRecording</a></li>
-
-      <li class="section-title"><a href="../dartvcr/dartvcr-library.html#enums">Enums</a></li>
-        <li><a href="../dartvcr/CommonTimeFrame.html">CommonTimeFrame</a></li>
-        <li><a href="../dartvcr/ExpirationAction.html">ExpirationAction</a></li>
-        <li><a href="../dartvcr/Mode.html">Mode</a></li>
-
-      <li class="section-title"><a href="../dartvcr/dartvcr-library.html#typedefs">Typedefs</a></li>
-        <li><a href="../dartvcr/MatchRule.html">MatchRule</a></li>
-
-      <li class="section-title"><a href="../dartvcr/dartvcr-library.html#exceptions">Exceptions</a></li>
-        <li><a href="../dartvcr/VCRException-class.html">VCRException</a></li>
-</ol>
-
+    <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-left-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -140,7 +114,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.3
+      0.3.0
   </span>
 
   

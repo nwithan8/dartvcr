@@ -40,24 +40,30 @@
   <div class="toggle" id="theme-button">
     <label for="theme">
       <input type="checkbox" id="theme" value="light-theme">
-      <span class="material-symbols-outlined">
+      <span id="dark-theme-button" class="material-symbols-outlined">
         brightness_4
+      </span>
+      <span id="light-theme-button" class="material-symbols-outlined">
+        brightness_5
       </span>
     </label>
   </div>
 </header>
 <main>
 
-  <div id="dartdoc-main-content" class="main-content">
+  <div
+      id="dartdoc-main-content"
+      class="main-content"
+      data-above-sidebar="dartvcr&#47;Cassette-class-sidebar.html"
+      data-below-sidebar="">
       <div>
 <h1><span class="kind-method">read</span> method 
-    <a href="https://dart.dev/null-safety" class="feature feature-null-safety" title="Supports the null safety language feature.">Null safety</a>
 </h1></div>
 
     <section class="multi-line-signature">
       
 
-<span class="returntype"><a href="https://api.dart.dev/stable/2.19.2/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">HttpInteraction</span>&gt;</span></span>
+<span class="returntype"><a href="https://api.dart.dev/stable/3.2.4/dart-core/List-class.html">List</a><span class="signature">&lt;<wbr><span class="type-parameter">HttpInteraction</span>&gt;</span></span>
 <span class="name ">read</span>(<wbr>)
 
       
@@ -96,52 +102,23 @@
   </div> <!-- /.main-content -->
 
   <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
-    <header id="header-search-sidebar" class="hidden-l">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
   <form class="search-sidebar" role="search">
     <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
 </header>
 
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-  <li><a href="../../index.html">dartvcr</a></li>
-  <li><a href="../../dartvcr/dartvcr-library.html">dartvcr</a></li>
-  <li><a href="../../dartvcr/Cassette-class.html">Cassette</a></li>
-  <li class="self-crumb">read method</li>
+    <li><a href="../../index.html">dartvcr</a></li>
+    <li><a href="../../dartvcr/dartvcr-library.html">dartvcr</a></li>
+    <li><a href="../../dartvcr/Cassette-class.html">Cassette</a></li>
+    <li class="self-crumb">read method</li>
 </ol>
 
 
     <h5>Cassette class</h5>
-    <ol>
-
-        <li class="section-title"><a href="../../dartvcr/Cassette-class.html#constructors">Constructors</a></li>
-          <li><a href="../../dartvcr/Cassette/Cassette.html">Cassette</a></li>
-
-
-        <li class="section-title">
-          <a href="../../dartvcr/Cassette-class.html#instance-properties">Properties</a>
-        </li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.2/dart-core/Object/hashCode.html">hashCode</a></li>
-          <li><a href="../../dartvcr/Cassette/name.html">name</a></li>
-          <li><a href="../../dartvcr/Cassette/numberOfInteractions.html">numberOfInteractions</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.2/dart-core/Object/runtimeType.html">runtimeType</a></li>
-
-        <li class="section-title"><a href="../../dartvcr/Cassette-class.html#instance-methods">Methods</a></li>
-          <li><a href="../../dartvcr/Cassette/erase.html">erase</a></li>
-          <li><a href="../../dartvcr/Cassette/lock.html">lock</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.2/dart-core/Object/noSuchMethod.html">noSuchMethod</a></li>
-          <li><a href="../../dartvcr/Cassette/read.html">read</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.2/dart-core/Object/toString.html">toString</a></li>
-          <li><a href="../../dartvcr/Cassette/unlock.html">unlock</a></li>
-          <li><a href="../../dartvcr/Cassette/update.html">update</a></li>
-
-        <li class="section-title inherited"><a href="../../dartvcr/Cassette-class.html#operators">Operators</a></li>
-          <li class="inherited"><a href="https://api.dart.dev/stable/2.19.2/dart-core/Object/operator_equals.html">operator ==</a></li>
-
-
-
-
-</ol>
-
+    <div id="dartdoc-sidebar-left-content"></div>
   </div><!--/.sidebar-offcanvas-->
 
   <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
@@ -152,7 +129,7 @@
 <footer>
   <span class="no-break">
     dartvcr
-      0.2.3
+      0.3.0
   </span>
 
   
