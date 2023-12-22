@@ -33,12 +33,12 @@ jobs:
 
       # Minimal package setup
       - name: Install dependencies
-        run: dart pub get
+        run: dart pub get # Don't use `make pull_deps`, will override version number
         working-directory: ${{ inputs.working-directory }}
 
       # Generate docs
       - name: Generate docs
-        run: dart doc
+        run: dart doc # Don't use `make docs`, will override version number
 
       # Deploy docs to GitHub pages
       - name: Deploy docs to GitHub pages

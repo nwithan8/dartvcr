@@ -6,14 +6,19 @@ help:
 unit_tests:
 	dart test test/tests.dart
 
+## version - Update version number
+# param: number - Version number
+version:
+	@sed -i 's/version: VERSIONADDEDBYGITHUB/version: $(number)/g' pubspec.yaml
+	@sed -i 's/version: 1.0.0/version: $(number)/g' pubspec.yaml # In case never got reset from temp_version
+
 ## temp_version - Set temporary version number
 temp_version:
-	@sed -i 's/VERSIONADDEDBYGITHUB/1.0.0/g' pubspec.yaml
-
+	@make version number=1.0.0
 
 ## github_version - Set version number for GitHub Actions
 github_version:
-	@sed -i 's/1.0.0/VERSIONADDEDBYGITHUB/g' pubspec.yaml
+	@make version number=VERSIONADDEDBYGITHUB
 
 ## pull_deps - Pull dependencies
 pull_deps:
@@ -37,4 +42,23 @@ outdated_deps:
 json_files:
 	@make temp_version
 	@dart run build_runner build
+	@make github_version
+
+## docs - Generate documentation
+docs:
+	@make temp_version
+	@dart doc
+	@make github_version
+
+## test_publish - Test publishing to pub.dev
+test_publish:
+	@make temp_version
+	@dart pub publish --dry-run
+	@make github_version
+
+## publish - Publish to pub.dev
+# param: number - Version number
+publish:
+	@make version number=$(number)
+	@dart pub publish -f
 	@make github_version

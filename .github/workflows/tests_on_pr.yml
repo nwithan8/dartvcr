@@ -27,7 +27,7 @@ jobs:
 
       # Minimal package setup
       - name: Install dependencies
-        run: dart pub get
+        run: make pull_deps
         working-directory: ${{ inputs.working-directory }}
 
       # Run unit tests

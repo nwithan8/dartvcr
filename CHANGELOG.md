@@ -1,3 +1,7 @@
+## 0.3.0 (2023-12-21)
+
+- [ADDED] Support for `http` ^1.1.0
+
 ## 0.2.3 (2023-02-10)
 
 - [ADDED] Docstring improvements

@@ -30,16 +30,16 @@ jobs:
 
       # Minimal package setup
       - name: Install dependencies
-        run: dart pub get
+        run: dart pub get # Don't use `make pull_deps`, will override version number
         working-directory: ${{ inputs.working-directory }}
 
       # Dry run checks
       - name: Publish - dry run
-        run: dart pub publish --dry-run
+        run: dart pub publish --dry-run # Don't use `make test_publish`, will override version number
         working-directory: ${{ inputs.working-directory }}
 
       # Publish
       - name: Publish to pub.dev
-        run: dart pub publish -f
+        run: dart pub publish -f # Don't use `make publish`, will override version number
         working-directory: ${{ inputs.working-directory }}
 
